@@ -60,15 +60,8 @@
           <h3>Endereço do Fornecedor:</h3>
 
           <div class="form-row">
-            <div class="form-field">
-              <label for="cepFornecedor">*CEP:</label>
-              <input type="text" formControlName="cep" id="cepFornecedor" (blur)="buscarEnderecoPorCep()">
-              <div class="erro" *ngIf="errosServidor?.cep">
-                {{ errosServidor.cep }}
-            </div>
-            </div>
-            <div class="form-field">
-              <label for="estadoFornecedor">*Estado:</label>
+            <div class="form-field small">
+              <label for="estadoFornecedor">*UF:</label>
               <select formControlName="estado" id="estadoFornecedor">
                 <option value="" selected></option>
                 <option value="AC">Acre</option>
@@ -103,36 +96,45 @@
                 {{ errosServidor.estado }}
             </div>
             </div>
-            <div class="form-field">
+            <div class="form-field" style="flex: 1;">
               <label for="cidadeFornecedor">*Cidade:</label>
               <input type="text" formControlName="cidade" id="cidadeFornecedor">
               <div class="erro" *ngIf="errosServidor?.cidade">
                 {{ errosServidor.cidade }}
+              </div>
             </div>
+            <div class="form-field" style="flex: 1.5;">
+              <label for="cepFornecedor">*CEP:</label>
+              <input type="text" formControlName="cep" id="cepFornecedor" maxlength="9" (blur)="buscarEnderecoPorCep()">
+              <div class="erro" *ngIf="errosServidor?.cep">
+                {{ errosServidor.cep }}
+              </div>
             </div>
-            <div class="form-field">
-              <label for="bairroFornecedor">*Bairro:</label>
-              <input type="text" formControlName="bairro" id="bairroFornecedor">
-              <div class="erro" *ngIf="errosServidor?.bairro">
-                {{ errosServidor.bairro }}
-            </div>
-            </div>
-            <div class="form-field">
+          </div>
+          
+          <div class="form-row">
+            <div class="form-field" style="flex: 2;">
               <label for="ruaFornecedor">*Rua:</label>
               <input type="text" formControlName="rua" id="ruaFornecedor">
               <div class="erro" *ngIf="errosServidor?.rua">
                 {{ errosServidor.rua }}
-            </div>
+              </div>
             </div>
             <div class="form-field small">
               <label for="nFornecedor">*Número:</label>
               <input type="text" formControlName="numero" id="nFornecedor">
               <div class="erro" *ngIf="errosServidor?.numero">
                 {{ errosServidor.numero }}
+              </div>
             </div>
+            <div class="form-field">
+              <label for="bairroFornecedor">*Bairro:</label>
+              <input type="text" formControlName="bairro" id="bairroFornecedor">
+              <div class="erro" *ngIf="errosServidor?.bairro">
+                {{ errosServidor.bairro }}
+              </div>
             </div>
           </div>
-
           <div class="form-buttons">
             <button type="submit" class="btn btn-save" id="btnSalvarFornecedor">Salvar</button>
             <button (click)="chamarFornecedores()" type="button" class="btn btn-cancel" id="btnCancelarFornecedor">Cancelar</button>

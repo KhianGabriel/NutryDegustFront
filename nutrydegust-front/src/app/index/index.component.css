@@ -1,0 +1,145 @@
+/* Reset e configurações globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo do corpo da página */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f7d046;
+    background-image: url('../../assets/img/background.png');
+    background-size: 1734.81px 800px;
+    background-repeat: repeat;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    overflow-y: auto;
+}
+
+/* Estilos do header e navegação */
+header {
+    background-color: #472c6b;
+    padding: 10px 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    height: 60px;
+}
+
+nav {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    background-color: #6d5191;
+    border-radius: 5px;
+    font-size: 14px;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+nav a:hover {
+    background-color: #8463ab;
+}
+
+nav a.active {
+    background-color: #5d4481;
+    transform: scale(0.98);
+}
+
+nav a:last-child {
+    background-color: #8b9dc9;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-weight: bold;
+}
+
+/* Container principal */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px); /* Ajuste conforme a altura do seu header */
+    padding: 2rem;
+}
+
+/* Estilo dos cards */
+.menu-card {
+    background-color: white;
+    border-radius: 25px; /* Aumentado para combinar com o novo tamanho */
+    padding: 2rem; /* Aumentado o padding */
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    gap: 1.5rem; /* Espaçamento entre ícone e texto */
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.menu-card img {
+    width: 80px;  /* Aumentado de 48px para 80px */
+    height: 80px; /* Aumentado de 48px para 80px */
+    transition: transform 0.3s ease;
+}
+
+.menu-card:hover img {
+    transform: scale(1.1); /* Efeito de zoom suave ao passar o mouse */
+}
+
+.menu-card h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem; /* Aumentado de 1.1rem para 1.5rem */
+    font-weight: 600; /* Deixando a fonte um pouco mais grossa */
+}
+
+/* Ajustando o container dos cards para acomodar os elementos maiores */
+.cards-window {
+    background-color:rgba(255, 255, 255, 0.7);
+    border-radius: 50px; /* Aumentado para combinar com o novo tamanho */
+    padding: 3rem; /* Aumentado o padding */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    max-width: 1400px; /* Aumentado para dar mais espaço aos cards */
+    margin: 0 auto;
+
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 2.5rem; /* Aumentado o espaçamento entre os cards */
+    padding: 1.5rem;
+}
+

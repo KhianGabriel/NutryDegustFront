@@ -1,0 +1,55 @@
+
+    <header>
+        <img src="../../assets/img/logo.png" alt="Nutry e Degust" class="logo">
+        <nav>
+            <a href="../../index/index.component.html">Início</a>
+            <a href="">Estoque</a>
+            <a href="">Produtos</a>
+            <a href="">Pedidos</a>
+            <a href="">Vendas</a>
+            <a href="">Clientes</a>
+            <a (click)="chamarFornecedores()">Fornecedores</a>
+            <a href="">Funcionários</a>
+            <a href="">Relatórios</a>
+            <a href="#" class="help-button">?</a>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <div class="cards-window">
+            <div class="cards-grid">
+                <div class="menu-card" onclick="window.location.href=''">
+                    <img src="../../assets/img/estoque.png" alt="Estoque">
+                    <h3>Estoque</h3>
+                </div>
+                <div class="menu-card" onclick="window.location.href=''">
+                    <img src="../../assets/img/produtos.png" alt="Produtos">
+                    <h3>Produtos</h3>
+                </div>
+                <div class="menu-card" onclick="window.location.href=''">
+                    <img src="../../assets/img/pedidos.png" alt="Pedidos">
+                    <h3>Pedidos</h3>
+                </div>
+                <div class="menu-card" onclick="window.location.href=''">
+                    <img src="../../assets/img/vendas.png" alt="Vendas">
+                    <h3>Vendas</h3>
+                </div>
+                <div class="menu-card" onclick="window.location.href=''">
+                    <img src="../../assets/img/clientes.png" alt="Clientes">
+                    <h3>Clientes</h3>
+                </div>
+                <div class="menu-card" (click)="chamarFornecedores()">
+                    <img src="../../assets/img/fornecedores.png" alt="Fornecedores">
+                    <h3>Fornecedores</h3>
+                </div>
+                <div class="menu-card" onclick="window.location.href=''">
+                    <img src="../../assets/img/funcionarios.png" alt="Funcionários">
+                    <h3>Funcionários</h3>
+                </div>
+                <div class="menu-card" onclick="window.location.href=''">
+                    <img src="../../assets/img/relatorios.png" alt="Relatórios">
+                    <h3>Relatórios</h3>
+                </div>
+            </div>
+        </div>
+    </main>

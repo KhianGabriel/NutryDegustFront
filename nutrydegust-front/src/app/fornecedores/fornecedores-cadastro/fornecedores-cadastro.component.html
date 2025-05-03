@@ -101,38 +101,41 @@
               <input type="text" formControlName="cidade" id="cidadeFornecedor">
               <div class="erro" *ngIf="errosServidor?.cidade">
                 {{ errosServidor.cidade }}
-              </div>
+            </div>
             </div>
             <div class="form-field" style="flex: 1.5;">
               <label for="cepFornecedor">*CEP:</label>
-              <input type="text" formControlName="cep" id="cepFornecedor" maxlength="9" (blur)="buscarEnderecoPorCep()">
+              <input type="text" formControlName="cep" id="cepFornecedor" maxlength="9">
               <div class="erro" *ngIf="errosServidor?.cep">
                 {{ errosServidor.cep }}
-              </div>
+            </div>
             </div>
           </div>
-          
+
           <div class="form-row">
             <div class="form-field" style="flex: 2;">
               <label for="ruaFornecedor">*Rua:</label>
               <input type="text" formControlName="rua" id="ruaFornecedor">
               <div class="erro" *ngIf="errosServidor?.rua">
                 {{ errosServidor.rua }}
-              </div>
+            </div>
             </div>
             <div class="form-field small">
               <label for="nFornecedor">*Número:</label>
               <input type="text" formControlName="numero" id="nFornecedor">
               <div class="erro" *ngIf="errosServidor?.numero">
                 {{ errosServidor.numero }}
-              </div>
             </div>
+            </div>
+          </div>
+
+          <div class="form-row">
             <div class="form-field">
               <label for="bairroFornecedor">*Bairro:</label>
               <input type="text" formControlName="bairro" id="bairroFornecedor">
               <div class="erro" *ngIf="errosServidor?.bairro">
                 {{ errosServidor.bairro }}
-              </div>
+            </div>
             </div>
           </div>
           <div class="form-buttons">

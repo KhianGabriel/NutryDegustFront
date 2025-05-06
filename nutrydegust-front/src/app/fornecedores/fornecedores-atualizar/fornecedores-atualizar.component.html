@@ -22,14 +22,14 @@
         <form [formGroup]="fornecedorForm" (ngSubmit)="atualizarFornecedor()">
           <div class="form-row">
             <div class="form-field">
-              <label for="nomeFornecedor">*Nome do Fornecedor:</label>
+              <label for="nomeFornecedor">Nome do Fornecedor:*</label>
               <input type="text" formControlName="nome" id="nomeFornecedor">
               <div class="erro" *ngIf="errosServidor?.nome">
                 {{ errosServidor.nome }}
               </div>
             </div>
             <div class="form-field">
-              <label for="cnpjFornecedor">*CNPJ:</label>
+              <label for="cnpjFornecedor">CNPJ:*</label>
               <input type="text" formControlName="cnpj" id="cnpjFornecedor">
               <div class="erro" *ngIf="errosServidor?.cnpj">
                 {{ errosServidor.cnpj }}
@@ -41,14 +41,14 @@
 
           <div class="form-row">
             <div class="form-field">
-              <label for="emailFornecedor">*Email:</label>
+              <label for="emailFornecedor">Email:*</label>
               <input type="email" formControlName="email" id="emailFornecedor">
               <div class="erro" *ngIf="errosServidor?.email">
                 {{ errosServidor.email }}
             </div>
             </div>
             <div class="form-field">
-              <label for="telefoneFornecedor">*Telefone:</label>
+              <label for="telefoneFornecedor">Telefone:*</label>
               <input type="tel" formControlName="telefone" id="telefoneFornecedor">
               <div class="erro" *ngIf="errosServidor?.telefone">
                 {{ errosServidor.telefone }}
@@ -60,7 +60,7 @@
 
           <div class="form-row">
             <div class="form-field small">
-              <label for="estadoFornecedor">*UF:</label>
+              <label for="estadoFornecedor">UF:*</label>
               <select formControlName="estado" id="estadoFornecedor">
                 <option value="" selected></option>
                 <option value="AC">Acre</option>
@@ -93,48 +93,45 @@
               </select>
               <div class="erro" *ngIf="errosServidor?.estado">
                 {{ errosServidor.estado }}
+              </div>
             </div>
-            </div>
-            <div class="form-field" style="flex: 1;">
-              <label for="cidadeFornecedor">*Cidade:</label>
+            <div class="form-field" style="flex: 1.5;">
+              <label for="cidadeFornecedor">Cidade:*</label>
               <input type="text" formControlName="cidade" id="cidadeFornecedor">
               <div class="erro" *ngIf="errosServidor?.cidade">
                 {{ errosServidor.cidade }}
+              </div>
             </div>
-            </div>
-            <div class="form-field" style="flex: 1.5;">
-              <label for="cepFornecedor">*CEP:</label>
+            <div class="form-field" style="flex: 2.3;">
+              <label for="cepFornecedor">CEP:*</label>
               <input type="text" formControlName="cep" id="cepFornecedor" maxlength="9">
               <div class="erro" *ngIf="errosServidor?.cep">
                 {{ errosServidor.cep }}
-            </div>
+              </div>
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-field" style="flex: 2;">
-              <label for="ruaFornecedor">*Rua:</label>
+              <label for="ruaFornecedor">Rua:*</label>
               <input type="text" formControlName="rua" id="ruaFornecedor">
               <div class="erro" *ngIf="errosServidor?.rua">
                 {{ errosServidor.rua }}
-            </div>
+              </div>
             </div>
             <div class="form-field small">
-              <label for="nFornecedor">*Número:</label>
+              <label for="nFornecedor">Número:*</label>
               <input type="text" formControlName="numero" id="nFornecedor">
               <div class="erro" *ngIf="errosServidor?.numero">
                 {{ errosServidor.numero }}
+              </div>
             </div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-field">
-              <label for="bairroFornecedor">*Bairro:</label>
+            <div class="form-field" style="flex: 1;">
+              <label for="bairroFornecedor">Bairro:*</label>
               <input type="text" formControlName="bairro" id="bairroFornecedor">
               <div class="erro" *ngIf="errosServidor?.bairro">
                 {{ errosServidor.bairro }}
-            </div>
+              </div>
             </div>
           </div>
 

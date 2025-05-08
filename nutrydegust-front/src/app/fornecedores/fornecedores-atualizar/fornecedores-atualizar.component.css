@@ -154,7 +154,7 @@ select {
 }
 
 .form-field.small {
-    flex: 0 0 100px;
+    flex: 0 0 140px;
 }
 
 .form-buttons {
@@ -212,3 +212,27 @@ select {
     font-size: 18px;
     font-weight: bold;
 }
+
+.toast-sucesso {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #286aa7;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.2);
+    z-index: 1055;
+  }
+
+  .toast-error {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #dc3545;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.2);
+    z-index: 1055;
+  }

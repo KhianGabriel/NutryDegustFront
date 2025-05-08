@@ -11,7 +11,7 @@ export const routes: Routes = [
     {path: 'index', component: IndexComponent},
     {path: 'fornecedores', component: FornecedoresComponent},
     {path: 'fornecedores-cadastro', component: FornecedoresCadastroComponent},
-    {path: 'fornecedores-atualizar/:id', component: FornecedoresAtualizarComponent},
+    {path: 'fornecedores-atualizar/:id', component: FornecedoresAtualizarComponent,  data: { renderMode: 'server' }},
 ];
 
 @NgModule({

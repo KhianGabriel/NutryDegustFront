@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^19.2.9",
     "@angular/common": "^19.2.0",
     "@angular/compiler": "^19.2.0",
     "@angular/core": "^19.2.0",
@@ -22,6 +23,8 @@
     "@angular/ssr": "^19.2.9",
     "bootstrap": "^5.3.5",
     "express": "^4.18.2",
+    "ngx-mask": "^19.0.6",
+    "ngx-toastr": "^19.0.0",
     "nutry-degustprojeto": "file:",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

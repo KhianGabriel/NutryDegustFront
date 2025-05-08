@@ -45,7 +45,7 @@
                   <tr *ngFor="let fornecedor of fornecedoresFiltrados">
                         <td>{{ fornecedor.nome }}</td>
                         <td>{{ formatarCNPJ(fornecedor.cnpj) }}</td>
-                        <td>{{ fornecedor.telefone }}</td>
+                        <td>{{ formatarTelefone(fornecedor.telefone) }}</td>
                         <td>{{ fornecedor.email }}</td>
                         <td>{{ fornecedor.rua }}</td>
                         <td>{{ fornecedor.numero }}</td>
@@ -55,16 +55,33 @@
                         <td>{{ formatarCEP(fornecedor.cep) }}</td>
                         <td>{{ fornecedor.dataCriacao | date:'dd/MM/yyyy' }}</td>
                         <td>
-                          <button [routerLink]="['/fornecedores-atualizar', fornecedor.id]" title="Editar">
-                            <span class="material-icons">edit</span>
+                          <button  [routerLink]="['/fornecedores-atualizar', fornecedor.id]">
+                            <i class='fa fa-pencil-alt text-primary'></i>
                           </button>
-                          <button (click)="excluirFornecedor(fornecedor)" title="Excluir">
-                            <span class="material-icons">delete</span>
+                          <button (click)="abrirModal(fornecedor)">
+                            <i class='fa fa-trash-alt text-danger'></i>
                           </button>
                         </td>
                       </tr>
                 </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal" tabindex="-1" [class.show]="modalAberto" style="display: block;" *ngIf="modalAberto">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirmar Exclusão</h5>
+              <button type="button" class="btn-close" (click)="fecharModal()"></button>
+            </div>
+            <div class="modal-body">
+              <p>Tem certeza que deseja excluir o fornecedor <strong>{{ fornecedorSelecionado?.nome }}</strong>?</p>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" (click)="fecharModal()">Cancelar</button>
+              <button class="btn btn-danger" (click)="excluirFornecedor()">Excluir</button>
+            </div>
           </div>
         </div>
       </div>

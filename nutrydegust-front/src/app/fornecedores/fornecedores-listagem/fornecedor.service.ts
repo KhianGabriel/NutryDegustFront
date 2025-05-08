@@ -31,17 +31,7 @@ export class FornecedorService {
   }
 
   excluirFornecedor(id: string): Observable<void> {
-    if (window.confirm('Deseja excluir o fornecedor?')) {
       const url = `${this.apiUrl}/${id}`; // URL do endpoint de exclusão
       return this.http.delete<void>(url);
-    } else {
-      window.alert('Fornecedor não excluído!');
-      return new Observable<void>((observer) => {
-        observer.complete();
-      });
-    }
-  }
-
-
-  
+  }  
 }

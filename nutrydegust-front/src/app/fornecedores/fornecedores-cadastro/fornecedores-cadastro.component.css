@@ -143,6 +143,7 @@ nav a:last-child {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 select {
@@ -161,7 +162,7 @@ select {
 }
 
 .form-field.small {
-    flex: 0 0 100px;
+    flex: 0 0 140px;
 }
 
 .form-buttons {

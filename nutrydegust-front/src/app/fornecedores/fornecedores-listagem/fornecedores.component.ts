@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FornecedorService, Fornecedor } from './fornecedor.service';
 import { Router, RouterModule } from "@angular/router";
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -16,8 +17,14 @@ export class FornecedoresComponent implements OnInit{
 
   fornecedores: Fornecedor[] = [];
   filtroNome: string = '';
+  fornecedorSelecionado: Fornecedor | null = null;
+  modalAberto: boolean = false;
 
-  constructor(private fornecedorService: FornecedorService, private route: Router) { }
+  constructor(
+    private fornecedorService: FornecedorService,
+    private route: Router,
+    private toastr: ToastrService
+  ) { }
 
 
   ngOnInit(): void {
@@ -32,15 +39,28 @@ export class FornecedoresComponent implements OnInit{
     );
   }
 
-  excluirFornecedor(fornecedor: Fornecedor): void {
-    this.fornecedorService.excluirFornecedor(fornecedor.id).subscribe(
+  abrirModal(fornecedor: Fornecedor): void {
+    this.fornecedorSelecionado = fornecedor;
+    this.modalAberto = true;
+  }
+
+  fecharModal(): void {
+    this.modalAberto = false;
+    this.fornecedorSelecionado = null;
+  }
+
+  excluirFornecedor(): void {
+    if (!this.fornecedorSelecionado) return;
+
+    this.fornecedorService.excluirFornecedor(this.fornecedorSelecionado.id).subscribe(
       () => {
-        // Ao excluir, você pode recarregar a lista ou removê-lo do array
-        this.fornecedores = this.fornecedores.filter(f => f.id !== fornecedor.id);
-        alert('Fornecedor excluído com sucesso!');
+        this.fornecedores = this.fornecedores.filter(f => f.id !== this.fornecedorSelecionado?.id);
+        this.fecharModal();
+        this.toastr.success('Fornecedor excluído com sucesso!');
       },
       (error) => {
-        console.error('Erro ao excluir fornecedor', error);
+        this.toastr.error('Erro ao excluir fornecedor.');
+        console.error(error);
       }
     );
   }
@@ -77,5 +97,9 @@ export class FornecedoresComponent implements OnInit{
     return cep.replace(/^(\d{5})(\d{3})$/, '$1-$2');
   }
   
+  formatarTelefone(telefone: string): string {
+    return telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+  }
+
   
 }

@@ -30,14 +30,14 @@
             </div>
             <div class="form-field">
               <label for="cnpjFornecedor">CNPJ:*</label>
-              <input type="text" formControlName="cnpj" id="cnpjFornecedor">
+              <input type="text" (input)="formatarCNPJ($event)" formControlName="cnpj" id="cnpjFornecedor" maxlength="18">
               <div class="erro" *ngIf="errosServidor?.cnpj">
                 {{ errosServidor.cnpj }}
             </div>
           </div>
         </div>
 
-          <h3>Contatos do Fornecedor:</h3>
+          <h3 class="section-title">Contatos do Fornecedor:</h3>
 
           <div class="form-row">
             <div class="form-field">
@@ -49,16 +49,23 @@
             </div>
             <div class="form-field">
               <label for="telefoneFornecedor">Telefone:*</label>
-              <input type="tel" formControlName="telefone" id="telefoneFornecedor">
+              <input type="text" formControlName="telefone" id="telefoneFornecedor" (input)="formatarTelefone($event)">
               <div class="erro" *ngIf="errosServidor?.telefone">
                 {{ errosServidor.telefone }}
             </div>
           </div>
           </div>
 
-          <h3>Endereço do Fornecedor:</h3>
+          <h3 class="section-title">Endereço do Fornecedor:</h3>
 
           <div class="form-row">
+            <div class="form-field" style="flex: 2.3;">
+              <label for="cepFornecedor">CEP:*</label>
+              <input type="text" formControlName="cep" id="cepFornecedor" maxlength="9" (blur)="buscarEnderecoPorCep()" (loadedmetadata)="formatarCEP($event)">
+              <div class="erro" *ngIf="errosServidor?.cep">
+                {{ errosServidor.cep }}
+              </div>
+            </div>
             <div class="form-field small">
               <label for="estadoFornecedor">UF:*</label>
               <select formControlName="estado" id="estadoFornecedor">
@@ -100,13 +107,6 @@
               <input type="text" formControlName="cidade" id="cidadeFornecedor">
               <div class="erro" *ngIf="errosServidor?.cidade">
                 {{ errosServidor.cidade }}
-              </div>
-            </div>
-            <div class="form-field" style="flex: 2.3;">
-              <label for="cepFornecedor">CEP:*</label>
-              <input type="text" formControlName="cep" id="cepFornecedor" maxlength="9">
-              <div class="erro" *ngIf="errosServidor?.cep">
-                {{ errosServidor.cep }}
               </div>
             </div>
           </div>

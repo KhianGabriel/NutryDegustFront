@@ -18,7 +18,7 @@
         <div class="form-container">
           <h1 class="form-title">Lista de Fornecedores</h1>
           <div class="acoes-container">
-            <input class="filtro" type="text" [(ngModel)]="filtroNome" placeholder="Buscar por nome" />
+            <input class="filtro" type="text" [(ngModel)]="filtroNome" [(ngModel)]="filtroCNPJ" placeholder="Buscar por nome ou CNPJ"/>
             <button (click)="chamarCadastroFornecedores()" class="btn-adicionar">
               + Adicionar Fornecedor
             </button>

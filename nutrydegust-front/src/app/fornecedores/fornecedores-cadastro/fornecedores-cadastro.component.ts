@@ -29,7 +29,7 @@ export class FornecedoresCadastroComponent implements OnInit {
     this.fornecedorForm = this.fb.group({
       nome: ['', Validators.required],
       cnpj: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
+      email: ['', [Validators.required, Validators.email]],
       telefone: ['', Validators.required],
       cep: ['', Validators.required],
       estado: ['', Validators.required],

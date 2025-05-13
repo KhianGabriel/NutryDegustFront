@@ -17,6 +17,7 @@ export class FornecedoresComponent implements OnInit{
 
   fornecedores: Fornecedor[] = [];
   filtroNome: string = '';
+  filtroCNPJ: string = '';
   fornecedorSelecionado: Fornecedor | null = null;
   modalAberto: boolean = false;
 
@@ -67,7 +68,8 @@ export class FornecedoresComponent implements OnInit{
 
   get fornecedoresFiltrados(): Fornecedor[] {
     return this.fornecedores.filter(f =>
-      f.nome.toLowerCase().includes(this.filtroNome.toLowerCase())
+      f.nomeBusca.toLowerCase().includes(this.filtroNome.toLowerCase()) ||
+      f.cnpj.toLowerCase().includes(this.filtroCNPJ.toLowerCase())
     );
   }
 

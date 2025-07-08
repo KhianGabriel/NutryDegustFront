@@ -1,0 +1,80 @@
+<header>
+  <img src="assets/img/logo.png" alt="Nutry e Degust" class="logo">
+  <nav>
+    <a href="../inicio/inicio.html">Início</a>
+    <a href="../estoque/estoque.html">Estoque</a>
+    <a href="../produtos/produtos.html">Produtos</a>
+    <a href="../pedidos/pedidos.html">Pedidos</a>
+    <a href="../vendas/vendas.html">Vendas</a>
+    <a href="../clientes/clientes.html">Clientes</a>
+    <a href="../fornecedores/fornecedores.html">Fornecedores</a>
+    <a href="../funcionarios/funcionarios.html">Funcionários</a>
+    <a href="../relatorios/relatorios.html">Relatórios</a>
+    <a href="#" class="help-button">?</a>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="estoque-listagem.css">
+  </nav>
+</header>
+
+<div class="main-content">
+  <div class="form-container">
+    <h1 class="form-title">Lista de Estoques</h1>
+    <div class="acoes-container">
+      <input class="filtro" type="text" placeholder="Buscar por nome ou categoria" />
+      <button class="btn-adicionar">+ Adicionar Estoque</button>
+    </div>
+
+    <div class="form-section">
+      <table class="tabela-estoque">
+        <thead>
+          <tr>
+            <th>Nome do Estoque</th>
+            <th>Categoria</th>
+            <th>Quantidade de Itens</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Exemplo estático de estoque -->
+          <tr>
+            <td>Estoque Central</td>
+            <td>Alimentos</td>
+            <td>120</td>
+            <td style="color: green; font-weight: bold;">Estável</td>
+            <td>
+              <button title="Editar">
+                <i class="fa fa-pencil-alt text-primary"></i>
+              </button>
+              <button title="Excluir">
+                <i class="fa fa-trash-alt text-danger"></i>
+              </button>
+              <button title="Detalhes">
+                <i class="fa fa-info-circle text-info"></i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>Estoque de Bebidas</td>
+            <td>Bebidas</td>
+            <td>15</td>
+            <td style="color: red; font-weight: bold;">Baixo</td>
+            <td>
+              <button title="Editar">
+                <i class="fa fa-pencil-alt text-primary"></i>
+              </button>
+              <button title="Excluir">
+                <i class="fa fa-trash-alt text-danger"></i>
+              </button>
+              <!--Abrir um modal com todos os produtos cadastrados nesse estoque-->
+              <button title="Detalhes">
+                <i class="fa fa-info-circle text-info"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

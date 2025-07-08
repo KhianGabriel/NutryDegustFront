@@ -1,0 +1,62 @@
+<header>
+  <img src="../../../assets/img/logo.png" alt="Nutry e Degust" class="logo">
+  <nav>
+    <a (click)="chamarIndex()">Início</a>
+    <a class="active" href="#">Estoque</a> {# Assumindo que esta é a página de edição de Estoque #}
+    <a href="../produtos/produtos.html">Produtos</a>
+    <a href="../pedidos/pedidos.html">Pedidos</a>
+    <a href="../vendas/vendas.html">Vendas</a>
+    <a href="../clientes/clientes.html">Clientes</a>
+    <a (click)="chamarFornecedores()">Fornecedores</a>
+    <a href="../funcionarios/funcionarios.html">Funcionários</a>
+    <a href="../relatorios/relatorios.html">Relatórios</a>
+    <a href="#" class="help-button">?</a>
+  </nav>
+</header>
+
+<div class="main-content">
+  <div class="form-container">
+    <h1 class="form-title">Edição de Estoque</h1>
+    <div class="form-section">
+      <h3 class="section-title">Informações do Estoque</h3>
+
+      {# AQUI ONDE AS MUDANÇAS SÃO APLICADAS #}
+      {# Substitua 'fornecedorForm' por 'estoqueForm' e 'atualizarFornecedor' por 'atualizarEstoque' #}
+      <form [formGroup]="estoqueForm" (ngSubmit)="atualizarEstoque()">
+        <div class="form-row">
+          <div class="form-field">
+            {# O 'nomeEstoque' no label e id deve corresponder ao campo no seu estoqueForm #}
+            <label for="nomeEstoque">Nome do Estoque:*</label>
+            {# O 'formControlName' deve corresponder ao nome do campo no seu Reactive Form (estoqueForm) #}
+            <input type="text" formControlName="nome" id="nomeEstoque">
+            {# Mensagens de erro do servidor para o campo 'nome' #}
+            <div class="erro" *ngIf="estoqueForm.get('nome')?.invalid && estoqueForm.get('nome')?.touched">
+              Nome do Estoque é obrigatório.
+            </div>
+            <div class="erro" *ngIf="errosServidor?.nome">
+              {{ errosServidor.nome }}
+            </div>
+          </div>
+          <div class="form-field">
+            {# A 'categoriaEstoque' no label e id deve corresponder ao campo no seu estoqueForm #}
+            <label for="categoriaEstoque">Categoria:*</label>
+            <input type="text" formControlName="categoriaLocal" id="categoriaEstoque">
+            <div class="erro" *ngIf="estoqueForm.get('categoriaLocal')?.invalid && estoqueForm.get('categoriaLocal')?.touched">
+              Categoria é obrigatória.
+            </div>
+            <div class="erro" *ngIf="errosServidor?.categoriaLocal">
+              {{ errosServidor.categoriaLocal }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-buttons">
+          {# Ajuste o type="submit" para chamar o método de atualização do estoque #}
+          <button type="submit" class="btn btn-save" id="btnSalvarEstoque">Salvar</button>
+          {# Ajuste o (click) para chamar o método de navegação para a lista de estoques #}
+          <button (click)="chamarEstoques()" type="button" class="btn btn-cancel" id="btnCancelarEstoque">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

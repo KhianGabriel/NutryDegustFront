@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Novo Produto - Nutry e Degust</title>
+  <link rel="stylesheet" href="style.css"> <!-- Estilo principal com a tabela de produtos -->
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/produto.css">
+</head>
+<body>
+  <header>
+    <img src="img/logo.png" alt="Logo Nutry & Degust" class="logo">
+    <nav>
+      <a href="#">Início</a>
+      <a href="#">Estoque</a>
+      <a class="active" href="#">Produtos</a>
+      <a href="#">Pedidos</a>
+      <a href="#">Vendas</a>
+      <a href="#">Clientes</a>
+      <a href="#">Fornecedores</a>
+      <a href="#">Funcionários</a>
+      <a href="#">Relatórios</a>
+      <a href="#" class="help-button">?</a>
+    </nav> 
+  </header>
+
+  <div class="main-content">
+  <div class="form-container">
+    <h1 class="form-title">Edição de Produto</h1>
+
+    <div class="form-section">
+      <h3 class="section-title">Preencha as informações do produto:</h3>
+
+      <form>
+        <!-- 🔽 Div de upload de imagem adicionada aqui -->
+        <div class="image-upload" style="margin-bottom: 20px; text-align: center;">
+          <button type="button" class="btn">imagem</button>
+          <span style="display: block; margin-top: 10px;">Anexe uma imagem<br>máx. 15MB</span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="nomeProduto">Nome do Produto:</label>
+            <input type="text" id="nomeProduto" placeholder="Digite o nome do produto">
+          </div>
+          <div class="form-field">
+            <label for="codigoProduto">Código do Produto:</label>
+            <input type="text" id="codigoProduto" placeholder="(Cód. do Produto)">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="descricaoProduto">Descrição do Produto:</label>
+            <input type="text" id="descricaoProduto" placeholder="Digite uma descrição">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="precoVenda">Preço do Produto:</label>
+            <input type="text" id="precoVenda" placeholder="Digite o valor de venda">
+          </div>
+          <div class="form-field">
+            <label for="precoCompra">Preço Pago pelo Produto:</label>
+            <input type="text" id="precoCompra" placeholder="Digite o valor de compra">
+          </div>
+          <div class="form-field">
+            <label for="dataValidade">Data de Validade:</label>
+            <input type="text" id="dataValidade" placeholder="DD/MM/YYYY">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="fornecedor">Nome do Fornecedor:</label>
+            <input type="text" id="fornecedor" placeholder="Ex: Cristina">
+          </div>
+          <div class="form-field">
+            <label for="estoque">Estoque:</label>
+            <select id="estoque">
+              <option value="">Selecione um estoque</option>
+              <option value="central">Estoque Central</option>
+              <option value="loja1">Loja 1</option>
+              <option value="loja2">Loja 2</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-save">Salvar</button>
+          <button type="button" class="btn btn-cancel">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

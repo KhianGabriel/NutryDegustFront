@@ -1,0 +1,69 @@
+<header>
+  <img src="assets/img/logo.png" alt="Nutry e Degust" class="logo">
+  <nav>
+    <a href="../inicio/index.html">Início</a>
+    <a href="../estoque/estoque.html">Estoque</a>
+    <a class="active" href="#">Produtos</a>
+    <a href="../pedidos/pedidos.html">Pedidos</a>
+    <a href="../vendas/vendas.html">Vendas</a>
+    <a href="../clientes/clientes.html">Clientes</a>
+    <a href="../funcionarios/funcionarios.html">Funcionários</a>
+    <a href="../relatorios/relatorios.html">Relatórios</a>
+    <a href="#" class="help-button">?</a>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/produto.css">
+  </nav>
+</header>
+
+<div class="main-content">
+  <div class="form-container">
+    <h1 class="form-title">Lista de Produtos</h1>
+
+    <div class="acoes-container">
+      <input class="filtro" type="text" placeholder="Buscar por nome ou código" />
+      <button class="btn-adicionar">+ Adicionar Produto</button>
+    </div>
+
+    <div class="form-section">
+      <table class="tabela-produtos">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Código</th>
+            <th>Validade</th>
+            <th>Descrição</th>
+            <th>Preço de Venda</th>
+            <th>Preço Pago</th>
+            <th>Fornecedor</th>
+            <th>Estoque</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Arroz 5kg</td>
+            <td>PRD001</td>
+            <td>10/12/2025</td>
+            <td>Arroz branco tipo 1</td>
+            <td>R$ 29,90</td>
+            <td>R$ 18,00</td>
+            <td>Fornecedor A</td>
+            <td>Estoque Central</td>
+            <td>
+              <button title="Editar">
+                <i class="fa fa-pencil-alt text-primary"></i>
+              </button>
+              <button title="Excluir">
+                <i class="fa fa-trash-alt text-danger"></i>
+              </button>
+              <button title="Detalhes">
+                <i class="fa fa-info-circle text-info"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

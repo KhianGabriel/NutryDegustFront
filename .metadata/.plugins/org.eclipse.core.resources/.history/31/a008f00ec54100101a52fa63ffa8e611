@@ -1,0 +1,5 @@
+package com.ifba.nutrydegust.domain.produto;
+
+public class Produto {
+
+}

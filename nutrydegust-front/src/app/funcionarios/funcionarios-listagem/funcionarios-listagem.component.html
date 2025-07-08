@@ -1,0 +1,96 @@
+<header>
+  <img src="assets/img/logo.png" alt="Nutry e Degust" class="logo">
+  <nav>
+    <a href="../inicio/inicio.html">Início</a>
+    <a href="../estoque/estoque.html">Estoque</a>
+    <a href="../produtos/produtos.html">Produtos</a>
+    <a href="../pedidos/pedidos.html">Pedidos</a>
+    <a href="../vendas/vendas.html">Vendas</a>
+    <a href="../clientes/clientes.html">Clientes</a>
+    <a href="../fornecedores/fornecedores.html">Fornecedores</a>
+    <a href="../funcionarios/funcionarios.html">Funcionários</a>
+    <a href="../relatorios/relatorios.html">Relatórios</a>
+    <a href="#" class="help-button">?</a>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/funcionario.css">
+</nav>
+</header>
+
+<div class="main-content">
+  <div class="form-container">
+    <h1 class="form-title">Lista de Funcionários</h1>
+    <div class="acoes-container">
+      <input class="filtro" type="text" placeholder="Buscar por nome ou CPF" />
+      <button class="btn-adicionar">+ Adicionar Funcionário</button>
+    </div>
+
+    <div class="form-section">
+      <table class="tabela-funcionarios">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Cargo</th>
+            <th>CPF</th>
+            <th>Data de Admissão</th>
+            <th>Salário</th>
+            <th>Carga Horária</th>
+            <th>Atividade</th>
+            <th>Tempo Aquisitivo</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Exemplo de funcionário -->
+          <tr>
+            <td>João Silva</td>
+            <td>Auxiliar Administrativo</td>
+            <td>123.456.789-00</td>
+            <td>01/02/2023</td>
+            <td>R$ 2.500,00</td>
+            <td>40h/semana</td>
+            <td>Atendimento ao público</td>
+            <td>1 ano e 5 meses</td>
+            <td>
+              <button title="Editar">
+                <i class="fa fa-pencil-alt text-primary"></i>
+              </button>
+              <button title="Excluir">
+                <i class="fa fa-trash-alt text-danger"></i>
+              </button>
+              <button title="Detalhes">
+                <i class="fa fa-info-circle text-info"></i>
+              </button>
+            </td>
+          </tr>
+          <!-- Adicione mais linhas conforme necessário -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Detalhes (apenas visual, sem JS) -->
+<div class="modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detalhes do Funcionário</h5>
+        <button type="button" class="btn-close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Email:</strong> joao@email.com</p>
+        <p><strong>Telefone:</strong> (11) 91234-5678</p>
+        <p><strong>Rua:</strong> Rua das Flores</p>
+        <p><strong>Número:</strong> 123</p>
+        <p><strong>Bairro:</strong> Centro</p>
+        <p><strong>Cidade:</strong> São Paulo</p>
+        <p><strong>Estado:</strong> SP</p>
+        <p><strong>CEP:</strong> 01234-567</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

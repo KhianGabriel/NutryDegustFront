@@ -63,6 +63,9 @@
               </button>
             </td>
           </tr>
+          <tr *ngIf="fornecedoresFiltrados.length === 0">
+            <td colspan="12" style="text-align: center;">Nenhum fornecedor encontrado.</td>
+          </tr>
         </tbody>
       </table>
     </div>

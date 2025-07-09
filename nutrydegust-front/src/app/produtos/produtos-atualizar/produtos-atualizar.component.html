@@ -8,9 +8,6 @@
   <header>
     <img src="img/logo.png" alt="Logo Nutry & Degust" class="logo">
     <nav>
-      <header>
-  <img src="../../../assets/img/logo.png" alt="Nutry e Degust" class="logo">
-  <nav>
     <a [routerLink]="['/index']" routerLinkActive="active">Início</a>
     <a [routerLink]="['/estoque']" routerLinkActive="active">Estoque</a>
     <a [routerLink]="['/produtos']" routerLinkActive="active">Produtos</a>
@@ -21,8 +18,6 @@
     <a [routerLink]="['/funcionarios']" routerLinkActive="active">Funcionários</a>
     <a [routerLink]="['/relatorios']" routerLinkActive="active">Relatórios</a>
     <a [routerLink]="['/ajuda']" class="help-button" routerLinkActive="active">?</a>
-  </nav>
-</header>
     </nav> 
   </header>
 
@@ -34,12 +29,6 @@
       <h3 class="section-title">Preencha as informações do produto:</h3>
 
       <form>
-        <!-- 🔽 Div de upload de imagem adicionada aqui -->
-        <div class="image-upload" style="margin-bottom: 20px; text-align: center;">
-          <button type="button" class="btn">imagem</button>
-          <span style="display: block; margin-top: 10px;">Anexe uma imagem<br>máx. 15MB</span>
-        </div>
-
         <div class="form-row">
           <div class="form-field">
             <label for="nomeProduto">Nome do Produto:</label>
@@ -97,6 +86,5 @@
     </div>
   </div>
 </div>
-
 </body>
 </html>

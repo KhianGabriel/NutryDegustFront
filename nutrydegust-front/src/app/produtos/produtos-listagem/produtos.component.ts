@@ -75,7 +75,7 @@ export class ProdutosComponent implements OnInit {
     );
   }
 
-  chamarCadastroProduto() {
+   chamarCadastroProdutos() {
     this.router.navigate(['produtos-cadastro']);
   }
 

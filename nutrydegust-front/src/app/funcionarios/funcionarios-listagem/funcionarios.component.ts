@@ -94,4 +94,8 @@ export class FuncionariosComponent implements OnInit {
     return telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
   }
 
+  formatarCEP(cep: string): string {
+    return cep.replace(/^(\d{5})(\d{3})$/, '$1-$2');
+  }
+
 }

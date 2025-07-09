@@ -51,9 +51,6 @@
               <span *ngIf="funcionarioForm.get('cpf')?.errors?.['required']">O CPF é obrigatório.</span>
             </div>
           </div>
-        </div>
-
-        <div class="form-row">
           <div class="form-field">
             <label for="salarioFuncionario">Salário:*</label>
             <input type="number" formControlName="salario" id="salarioFuncionario" step="0.01">
@@ -65,6 +62,9 @@
               <span *ngIf="funcionarioForm.get('salario')?.errors?.['min']">O salário não pode ser negativo.</span>
             </div>
           </div>
+        </div>
+
+        <div class="form-row">
           <div class="form-field">
             <label for="cargaHorariaFuncionario">Carga Horária:*</label>
             <input type="number" formControlName="cargaHoraria" id="cargaHorariaFuncionario" placeholder="ex: 40">
@@ -76,9 +76,6 @@
               <span *ngIf="funcionarioForm.get('cargaHoraria')?.errors?.['min']">A carga horária não pode ser negativa.</span>
             </div>
           </div>
-        </div>
-
-        <div class="form-row">
           <div class="form-field">
             <label for="atividadeFuncionario">Atividade:*</label>
             <input type="text" formControlName="atividade" id="atividadeFuncionario">

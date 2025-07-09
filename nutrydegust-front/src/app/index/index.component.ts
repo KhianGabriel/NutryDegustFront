@@ -16,5 +16,18 @@ export class IndexComponent {
   chamarFornecedores() {
     this.route.navigate(['fornecedores']);
   }
+
+  chamarProdutos() {
+    this.route.navigate(['produtos']);
+  }
+
+  chamarEstoque() {
+    this.route.navigate(['estoque']);
+  }
+
+  chamarFuncionarios() {
+    this.route.navigate(['funcionarios']);
+  }
+
 }
 

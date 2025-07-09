@@ -1,0 +1,101 @@
+<header>
+  <img src="assets/img/logo.png" alt="Nutry e Degust" class="logo">
+  <nav>
+    <a [routerLink]="['/index']">Início</a>
+    <a [routerLink]="['/estoque']">Estoque</a>
+    <a [routerLink]="['/produtos']">Produtos</a>
+    <a >Pedidos</a>
+    <a >Vendas</a>
+    <a >Clientes</a>
+    <a [routerLink]="['/fornecedores']">Fornecedores</a>
+    <a [routerLink]="['/funcionarios']">Funcionários</a>
+    <a >Relatórios</a>
+    <a href="#" class="help-button">?</a>
+  </nav>
+</header>
+
+<div class="main-content">
+  <div class="form-container">
+    <h1 class="form-title">Lista de Funcionários</h1>
+    <div class="acoes-container">
+      <input class="filtro" type="text" placeholder="Buscar por nome..." [(ngModel)]="filtroNome" />
+      <input class="filtro" type="text" placeholder="Buscar por CPF..." [(ngModel)]="filtroCPF" />
+      <button class="btn-adicionar" (click)="chamarCadastroFuncionarios()">+ Adicionar Funcionário</button>
+    </div>
+
+    <div class="form-section">
+      <table class="tabela-funcionarios">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Cargo</th>
+            <th>CPF</th>
+            <th>Data de Contratação</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Salário</th>
+            <th>Carga Horária</th>
+            <th>Atividade</th>
+            <th>Tempo Aquisitivo</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let funcionario of funcionariosFiltrados">
+            <td>{{ funcionario.nome }}</td>
+            <td>{{ funcionario.cargo }}</td>
+            <td>{{ formatarCPF(funcionario.cpf) }}</td>
+            <td>{{ funcionario.dataContratacao | date:'dd/MM/yyyy' }}</td>
+            <td>{{ funcionario.email }}</td>
+            <td>{{ formatarTelefone(funcionario.telefone) }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <button title="Editar" (click)="chamarAtualizarFuncionario(funcionario)">
+                <i class="fa fa-pencil-alt text-primary"></i>
+              </button>
+              <button title="Excluir" (click)="abrirModal(funcionario)">
+                <i class="fa fa-trash-alt text-danger"></i>
+              </button>
+              <button title="Detalhes" (click)="abrirModal(funcionario)">
+                <i class="fa fa-info-circle text-info"></i>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="funcionariosFiltrados.length === 0">
+            <td colspan="11" style="text-align: center;">Nenhum funcionário encontrado.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal" [style.display]="modalAberto ? 'block' : 'none'">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detalhes do Funcionário</h5>
+        <button type="button" class="btn-close" (click)="fecharModal()"></button>
+      </div>
+      <div class="modal-body" *ngIf="funcionarioSelecionado">
+        <p><strong>ID:</strong> {{ funcionarioSelecionado.id }}</p>
+        <p><strong>Nome:</strong> {{ funcionarioSelecionado.nome }}</p>
+        <p><strong>Cargo:</strong> {{ funcionarioSelecionado.cargo }}</p>
+        <p><strong>CPF:</strong> {{ formatarCPF(funcionarioSelecionado.cpf) }}</p>
+        <p><strong>Email:</strong> {{ funcionarioSelecionado.email }}</p>
+        <p><strong>Telefone:</strong> {{ formatarTelefone(funcionarioSelecionado.telefone) }}</p>
+        <p><strong>Data de Contratação:</strong> {{ funcionarioSelecionado.dataContratacao | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Data de Criação (no sistema):</strong> {{ funcionarioSelecionado.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</p>
+        <hr>
+        <p>Deseja realmente excluir este funcionário?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="fecharModal()">Cancelar</button>
+        <button class="btn btn-danger" (click)="excluirFuncionario()">Confirmar Exclusão</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EstoquesComponent } from './estoques.component';
+import { EstoquesAtualizarComponent } from './estoques-atualizar.component';
 
-describe('EstoquesComponent', () => {
-  let component: EstoquesComponent;
-  let fixture: ComponentFixture<EstoquesComponent>;
+describe('EstoquesAtualizarComponent', () => {
+  let component: EstoquesAtualizarComponent;
+  let fixture: ComponentFixture<EstoquesAtualizarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EstoquesComponent]
+      imports: [EstoquesAtualizarComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EstoquesComponent);
+    fixture = TestBed.createComponent(EstoquesAtualizarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

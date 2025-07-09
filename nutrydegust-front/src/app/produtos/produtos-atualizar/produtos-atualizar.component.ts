@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-produtos',
   imports: [],
-  templateUrl: './produtos.component.html',
-  styleUrl: './produtos.component.css'
+  templateUrl: './produtos-atualizar.component.html',
+  styleUrl: './produtos-atualizar.component.css'
 })
-export class ProdutosComponent {
+export class ProdutosAtualizarComponent {
 
 }

@@ -3,24 +3,22 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-export interface Funcionario {
+export interface FuncionarioCadastro {
   id: string;
   nome: string;
-  cpf: string;
-  telefone: string;
-  email: string;
   cargo: string;
-  dataContratacao: Date; 
-  dataCriacao: Date;
-}
-
-export interface RequestFuncionarioCreate {
-  nome: string;
   cpf: string;
-  telefone: string;
+  salario: number;
+  cargaHoraria: number;
+  atividade: string;
   email: string;
-  cargo: string;
-  dataContratacao: string; 
+  telefone: string;
+  cep: string;
+  estado: string;
+  cidade: string;
+  rua: string;
+  numero: string;
+  bairro: string;
 }
 
 @Injectable({
@@ -32,7 +30,7 @@ export class FuncionariosCadastroService {
 
   constructor(private http: HttpClient) { }
 
-  cadastrarFuncionario(funcionario: RequestFuncionarioCreate): Observable<void> {
+  cadastrarFuncionario(funcionario: FuncionarioCadastro): Observable<void> {
     return this.http.post<void>(this.apiUrl, funcionario)
       .pipe(
         catchError(this.handleError)

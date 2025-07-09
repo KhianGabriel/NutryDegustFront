@@ -1,104 +1,115 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { EstoqueService, Estoque, RequestEstoquePut } from './estoques-atualizar.service';
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms'; // Adicionado Validators e ReactiveFormsModule
 import { ToastrService } from 'ngx-toastr';
+import { EstoqueService, EstoqueAtualizar } from './estoques-atualizar.service'; // Importando o serviço correto
 
 @Component({
-  selector: 'app-estoques-atualizar',
+  selector: 'app-estoques-atualizar', // Selector mais específico para o componente de atualização
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule
-  ],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule], // Adicionado ReactiveFormsModule
   templateUrl: './estoques-atualizar.component.html',
-  styleUrls: ['./estoques-atualizar.component.css']
+  styleUrl: './estoques-atualizar.component.css'
 })
 export class EstoquesAtualizarComponent implements OnInit {
 
-  estoqueForm!: FormGroup;
-  estoqueId: string | null = null;
+  // Removido: estoques: EstoqueAtualizar[] = []; // Não é necessário para um componente de atualização de item único
+  estoqueForm: FormGroup;
+  id: string = ''; // Usando 'string' para o ID
   errosServidor: any;
+
   constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
+    private estoqueService: EstoqueService, // Usando o EstoqueService correto
     private router: Router,
-    private estoqueService: EstoqueService,
-    private toastr: ToastrService
-  ) { }
+    private route: ActivatedRoute,
+    private toastr: ToastrService,
+    private fb: FormBuilder) {
+    this.estoqueForm = this.fb.group({
+      // Adicionado Validators.required para o nome
+      nome: ['', Validators.required],
+      // O ID não precisa ser um FormControl se você só o usa da rota e não o edita diretamente no formulário
+      // id: ['']
+    });
+  }
 
   ngOnInit(): void {
-    this.estoqueId = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id')!; // O '!' afirma que o valor não será nulo
 
-    this.estoqueForm = this.fb.group({
-      nome: ['', Validators.required]
+    this.estoqueService.getEstoqueById(this.id).subscribe({
+      next: (estoque) => {
+        this.estoqueForm.patchValue(estoque); // Preenche o formulário com os dados do estoque
+        this.toastr.success('Estoque carregado para edição.');
+      },
+      error: (err) => {
+        console.error('Erro ao buscar estoque:', err);
+        this.toastr.error('Erro ao carregar estoque para edição.');
+        this.router.navigate(['/estoque']); // Redireciona em caso de erro
+      }
     });
-
-    if (this.estoqueId) {
-      this.estoqueService.getEstoqueById(this.estoqueId).subscribe(
-        (estoque: Estoque) => {
-          this.estoqueForm.patchValue({
-            nome: estoque.nome
-          });
-        },
-        (error) => {
-          console.error('Erro ao carregar estoque para atualização:', error);
-          this.toastr.error('Erro ao carregar dados do estoque.');
-          this.router.navigate(['/estoque']);
-        }
-      );
-    } else {
-      this.toastr.error('ID do estoque não fornecido para atualização.');
-      this.router.navigate(['/estoque']);
-    }
   }
 
-  // Método para lidar com a submissão do formulário
   atualizarEstoque(): void {
-    if (this.estoqueForm.valid && this.estoqueId) {
-      // --- CORREÇÃO AQUI: Crie o objeto com o tipo RequestEstoquePut ---
-      const estoqueParaAtualizar: RequestEstoquePut = {
-        nome: this.estoqueForm.value.nome // Apenas 'nome' é enviado no PUT
+    // Verifica se o formulário é válido
+    if (this.estoqueForm.valid) {
+      // Cria o objeto com o tipo RequestEstoquePut, contendo apenas o 'nome'
+      const estoqueParaAtualizar: EstoqueAtualizar = {
+        nome: this.estoqueForm.value.nome
       };
 
-      this.estoqueService.atualizarEstoque(this.estoqueId, estoqueParaAtualizar).subscribe( // Use o novo objeto
-        (response: Estoque) => {
+      this.estoqueService.atualizarEstoque(this.id, estoqueParaAtualizar).subscribe({
+        next: (response: EstoqueAtualizar) => { // O tipo de resposta é Estoque (a entidade completa)
           this.toastr.success('Estoque atualizado com sucesso!');
-          this.router.navigate(['/estoque']);
+          this.router.navigate(['/estoque']); // Redireciona para a lista de estoques
         },
-        (error) => {
+        error: (error) => {
           console.error('Erro ao atualizar estoque:', error);
           this.toastr.error('Erro ao atualizar estoque.');
+          // Se o erro tiver detalhes do servidor, você pode exibi-los
+          this.errosServidor = error.error; // Assumindo que o backend retorna erros no corpo 'error.error'
         }
-      );
+      });
     } else {
       this.toastr.warning('Por favor, preencha o nome do estoque.');
+      this.estoqueForm.markAllAsTouched(); // Marca os campos para exibir mensagens de validação
     }
   }
 
-   chamarInicio(): void {
-    this.router.navigate(['/index']);
+  // Métodos de navegação
+  chamarInicio() {
+    this.router.navigate(['index']);
   }
 
-  chamarEstoque(): void {
-    this.router.navigate(['/estoques']);
+  chamarFornecedores() {
+    this.router.navigate(['fornecedores']);
   }
 
-  chamarProdutos(): void {
-    this.router.navigate(['/produtos']);
+  chamarProdutos() {
+    this.router.navigate(['produtos']);
   }
 
-  chamarFornecedores(): void {
-    this.router.navigate(['/fornecedores']);
+  chamarEstoque() {
+    this.router.navigate(['estoque']); // Rota para a listagem de estoques
   }
 
-  chamarFuncionarios(): void {
-    this.router.navigate(['/funcionarios']);
+  chamarFuncionarios() {
+    this.router.navigate(['funcionarios']); 
   }
 
-  voltarParaLista(): void {
-    this.router.navigate(['/estoque']);
+  // Métodos de formatação (se ainda forem necessários neste componente, caso contrário podem ser removidos)
+  formatarCNPJ(cnpj: string): string {
+    return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
   }
 
+  formatarCPF(cpf: string): string {
+    return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
+  }
+
+  formatarCEP(cep: string): string {
+    return cep.replace(/^(\d{5})(\d{3})$/, '$1-$2');
+  }
+
+  formatarTelefone(telefone: string): string {
+    return telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+  }
 }

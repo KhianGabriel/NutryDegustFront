@@ -26,17 +26,15 @@
     <div class="form-section">
       <table class="tabela-funcionarios">
         <thead>
-          <tr>
+          <tr> 
             <th>Nome</th>
             <th>Cargo</th>
             <th>CPF</th>
-            <th>Data de Contratação</th>
             <th>Email</th>
             <th>Telefone</th>
             <th>Salário</th>
             <th>Carga Horária</th>
             <th>Atividade</th>
-            <th>Tempo Aquisitivo</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -45,13 +43,11 @@
             <td>{{ funcionario.nome }}</td>
             <td>{{ funcionario.cargo }}</td>
             <td>{{ formatarCPF(funcionario.cpf) }}</td>
-            <td>{{ funcionario.dataContratacao | date:'dd/MM/yyyy' }}</td>
             <td>{{ funcionario.email }}</td>
             <td>{{ formatarTelefone(funcionario.telefone) }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{funcionario.salario}}</td>
+            <td>{{funcionario.cargaHoraria}}</td>
+            <td>{{funcionario.atividade}}</td>
             <td>
               <button title="Editar" (click)="chamarAtualizarFuncionario(funcionario)">
                 <i class="fa fa-pencil-alt text-primary"></i>
@@ -87,8 +83,6 @@
         <p><strong>CPF:</strong> {{ formatarCPF(funcionarioSelecionado.cpf) }}</p>
         <p><strong>Email:</strong> {{ funcionarioSelecionado.email }}</p>
         <p><strong>Telefone:</strong> {{ formatarTelefone(funcionarioSelecionado.telefone) }}</p>
-        <p><strong>Data de Contratação:</strong> {{ funcionarioSelecionado.dataContratacao | date:'dd/MM/yyyy' }}</p>
-        <p><strong>Data de Criação (no sistema):</strong> {{ funcionarioSelecionado.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</p>
         <hr>
         <p>Deseja realmente excluir este funcionário?</p>
       </div>

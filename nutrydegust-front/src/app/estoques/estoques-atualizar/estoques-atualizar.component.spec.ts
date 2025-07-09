@@ -19,5 +19,5 @@ describe('EstoquesAtualizarComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
+  }); 
 });

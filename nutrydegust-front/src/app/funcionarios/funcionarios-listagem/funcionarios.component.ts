@@ -5,19 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { FuncionarioService } from './funcionarios.service';
-
-
-export interface Funcionario {
-  id: string;
-  nome: string;
-  cpf: string;
-  telefone: string;
-  email: string;
-  cargo: string;
-  dataContratacao: Date;
-  dataCriacao: Date;
-}
+import { FuncionarioService, Funcionario } from './funcionarios.service';
 
 
 @Component({

@@ -6,12 +6,19 @@ import { Observable } from 'rxjs';
 export interface Funcionario {
   id: string;
   nome: string;
-  cpf: string;
-  telefone: string;
-  email: string;
   cargo: string;
-  dataContratacao: Date; // Usar tipo Date para datas
-  dataCriacao: Date;
+  cpf: string;
+  salario: number;
+  cargaHoraria: number;
+  atividade: string;
+  email: string;
+  telefone: string;
+  cep: string;
+  estado: string;
+  cidade: string;
+  rua: string;
+  numero: string;
+  bairro: string;
 }
 
 @Injectable({

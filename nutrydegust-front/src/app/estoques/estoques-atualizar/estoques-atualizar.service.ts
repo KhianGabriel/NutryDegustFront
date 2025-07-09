@@ -2,19 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface Estoque {
-  id: string;
+export interface EstoqueAtualizar {
+  //id: string;
   nome: string;
 }
-
-export interface RequestEstoqueCreate {
-  nome: string;
-}
-
-export interface RequestEstoquePut {
-  nome: string;
-}
-
 
 @Injectable({
   providedIn: 'root'
@@ -25,26 +16,13 @@ export class EstoqueService {
 
   constructor(private http: HttpClient) { }
 
-  getAllEstoques(): Observable<Estoque[]> { 
-    return this.http.get<Estoque[]>(this.apiUrl);
-  }
-
-  getEstoqueById(id: string): Observable<Estoque> { 
+  getEstoqueById(id: string): Observable<EstoqueAtualizar> { 
     const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Estoque>(url);
+    return this.http.get<EstoqueAtualizar>(url);
   }
 
-  cadastrarEstoque(estoque: RequestEstoqueCreate): Observable<void> {
-    return this.http.post<void>(this.apiUrl, estoque);
-  }
-
-  atualizarEstoque(id: string, estoque: RequestEstoquePut): Observable<Estoque> { 
+  atualizarEstoque(id: string, estoque: EstoqueAtualizar): Observable<EstoqueAtualizar> { 
     const url = `${this.apiUrl}/${id}`;
-    return this.http.put<Estoque>(url, estoque);
-  }
-
-  excluirEstoque(id: string): Observable<void> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<void>(url);
+    return this.http.put<EstoqueAtualizar>(url, estoque);
   }
 }

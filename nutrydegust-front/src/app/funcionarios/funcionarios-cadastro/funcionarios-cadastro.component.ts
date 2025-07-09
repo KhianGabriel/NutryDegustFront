@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { FuncionariosCadastroService, RequestFuncionarioCreate } from './funcionarios-cadastro.service';
+import { FuncionariosCadastroService, FuncionarioCadastro} from './funcionarios-cadastro.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ViaCepService } from './viacep.service';
 import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-funcionarios-cadastro',
@@ -21,6 +22,7 @@ export class FuncionariosCadastroComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private toastr: ToastrService,
+    private viaCepService: ViaCepService,
   ) { }
 
   ngOnInit(): void {
@@ -28,9 +30,17 @@ export class FuncionariosCadastroComponent implements OnInit {
       nome: ['', Validators.required],
       cpf: ['', Validators.required],
       telefone: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]], // Email com validação de formato
       cargo: ['', Validators.required],
-      dataContratacao: ['', Validators.required]
+      salario: [null, [Validators.required, Validators.min(0)]], // Salário como número, min 0
+      cargaHoraria: [null, [Validators.required, Validators.min(0)]], // Carga Horária como número, min 0
+      atividade: ['', Validators.required],
+      cep: ['', Validators.required],
+      estado: ['', Validators.required],
+      cidade: ['', Validators.required],
+      rua: ['', Validators.required],
+      numero: ['', Validators.required],
+      bairro: ['', Validators.required],
     });
   }
 
@@ -71,17 +81,7 @@ export class FuncionariosCadastroComponent implements OnInit {
   }
 
   cadastrarFuncionario() {
-    this.errosServidor = {};
-
-    if (this.funcionarioForm.valid) {
-      const funcionario: RequestFuncionarioCreate = {
-        nome: this.funcionarioForm.value.nome,
-        cpf: this.funcionarioForm.value.cpf.replace(/\D/g, ''),
-        telefone: this.funcionarioForm.value.telefone.replace(/\D/g, ''),
-        email: this.funcionarioForm.value.email,
-        cargo: this.funcionarioForm.value.cargo,
-        dataContratacao: this.funcionarioForm.value.dataContratacao
-      };
+    const funcionario: FuncionarioCadastro = this.funcionarioForm.value;
 
       this.funcionarioService.cadastrarFuncionario(funcionario).subscribe({
         next: () => {
@@ -108,10 +108,21 @@ export class FuncionariosCadastroComponent implements OnInit {
           }
         }
       });
-    } else {
-      this.toastr.warning('Por favor, preencha todos os campos obrigatórios corretamente.');
-      this.funcionarioForm.markAllAsTouched();
     }
+
+  formatarCEP(event: any): void {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/\D/g, '');
+    
+    value = value.substring(0, 8);
+    
+    this.funcionarioForm.get('cep')?.setValue(value, { emitEvent: false });
+    
+    if (value.length > 5) {
+      value = value.replace(/^(\d{5})(\d{0,3})/, '$1-$2');
+    }
+    
+    input.value = value;
   }
 
   chamarInicio(): void {
@@ -137,4 +148,29 @@ export class FuncionariosCadastroComponent implements OnInit {
   voltarParaLista(): void {
     this.router.navigate(['/funcionarios']);
   }
+
+    buscarEnderecoPorCep() {
+    const cep = this.funcionarioForm.get('cep')?.value;
+    console.log('CEP digitado:', cep);
+    if (cep && cep.length === 8) {
+      this.viaCepService.buscarCep(cep).subscribe(dados => {
+        if (!dados.erro) {
+          this.funcionarioForm.patchValue({
+            estado: dados.uf,
+            cidade: dados.localidade,
+            bairro: dados.bairro,
+            rua: dados.logradouro
+          });
+        } else {
+          this.toastr.error('CEP não encontrado');
+          this.funcionarioForm.get('estado')?.setValue('');
+          this.funcionarioForm.get('cidade')?.setValue('');
+          this.funcionarioForm.get('bairro')?.setValue('');
+          this.funcionarioForm.get('rua')?.setValue('');
+          this.funcionarioForm.get('numero')?.setValue('');
+        }
+      });
+    }
+  }
+  
 }

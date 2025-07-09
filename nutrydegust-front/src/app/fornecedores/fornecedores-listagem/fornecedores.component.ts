@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-<<<<<<< HEAD
 import { FornecedorService, Fornecedor } from './fornecedores.service';
-=======
-import { FornecedorService, Fornecedor } from './fornecedor.service';
->>>>>>> d902b74155ea2752bc1f0a75f83d0950b61b4cf6
 import { Router, RouterModule } from "@angular/router";
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -114,14 +110,6 @@ export class FornecedoresComponent implements OnInit{
     return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
   }
 
-<<<<<<< HEAD
-=======
-
-  formatarCNPJ(cnpj: string): string {
-    return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
-  }
-
->>>>>>> d902b74155ea2752bc1f0a75f83d0950b61b4cf6
   formatarCPF(cpf: string): string {
     return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
   }

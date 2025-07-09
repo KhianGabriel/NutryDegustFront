@@ -101,10 +101,10 @@ export class FornecedoresCadastroComponent implements OnInit {
 }
 
   cadastrarFornecedor() {
-      const cnpjControl = this.fornecedorForm.get('cnpj');
-      const cnpjValue = cnpjControl?.value;
+      const cpfControl = this.fornecedorForm.get('cnpj');
+      const cpfValue = cpfControl?.value;
 
-      const cnpjStr = String(cnpjValue || '');
+      const cnpjStr = String(cpfValue || '');
 
       const fornecedor: FornecedorCadastro = this.fornecedorForm.value;
       this.fornecedorService.cadastrarFornecedor(fornecedor).subscribe({

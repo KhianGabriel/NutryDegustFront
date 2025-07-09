@@ -1,88 +1,87 @@
-
-    <header>
-        <img src="assets/img/logo.png" alt="Nutry e Degust" class="logo">
-        <nav>
-            <a (click)="chamarInicio()">Início</a>
-            <a href="../estoque/estoque.html">Estoque</a>
-            <a href="../produtos/produtos.html">Produtos</a>
-            <a href="../pedidos/pedidos.html">Pedidos</a>
-            <a href="../vendas/vendas.html">Vendas</a>
-            <a href="../clientes/clientes.html">Clientes</a>
-            <a> Fornecedores</a>
-            <a href="../funcionarios/funcionarios.html">Funcionários</a>
-            <a href="../relatorios/relatorios.html">Relatórios</a>
-            <a href="#" class="help-button">?</a>
-        </nav>
-    </header>
-    <div class="main-content">
-        <div class="form-container">
-          <h1 class="form-title">Lista de Fornecedores</h1>
-          <div class="acoes-container">
-            <input class="filtro" type="text" [(ngModel)]="filtroNome" [(ngModel)]="filtroCNPJ" placeholder="Buscar por nome ou CNPJ"/>
-            <button (click)="chamarCadastroFornecedores()" class="btn-adicionar">
-              + Adicionar Fornecedor
-            </button>
-          </div>          
-          <div class="form-section">
-            <table class="tabela-fornecedores">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>CNPJ</th>
-                        <th>Telefone</th>
-                        <th>Email</th>
-                        <th>Rua</th>
-                        <th>Nº</th>
-                        <th>Bairro</th>
-                        <th>Cidade</th>
-                        <th>Estado</th>
-                        <th>CEP</th>
-                        <th>Data de Criação</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let fornecedor of fornecedoresFiltrados">
-                        <td>{{ fornecedor.nome }}</td>
-                        <td>{{ formatarCNPJ(fornecedor.cnpj) }}</td>
-                        <td>{{ formatarTelefone(fornecedor.telefone) }}</td>
-                        <td>{{ fornecedor.email }}</td>
-                        <td>{{ fornecedor.rua }}</td>
-                        <td>{{ fornecedor.numero }}</td>
-                        <td>{{ fornecedor.bairro }}</td>
-                        <td>{{ fornecedor.cidade }}</td>
-                        <td>{{ fornecedor.estado }}</td>
-                        <td>{{ formatarCEP(fornecedor.cep) }}</td>
-                        <td>{{ fornecedor.dataCriacao | date:'dd/MM/yyyy' }}</td>
-                        <td>
-                          <button  [routerLink]="['/fornecedores-atualizar', fornecedor.id]">
-                            <i class='fa fa-pencil-alt text-primary'></i>
-                          </button>
-                          <button (click)="abrirModal(fornecedor)">
-                            <i class='fa fa-trash-alt text-danger'></i>
-                          </button>
-                        </td>
-                      </tr>
-                </tbody>
-            </table>
-          </div>
-        </div>
+<header>
+  <img src="assets/img/logo.png" alt="Nutry e Degust" class="logo">
+  <nav>
+    <a (click)="chamarInicio()">Início</a>
+    <a (click)="chamarEstoque()">Estoque</a>
+    <a (click)="chamarProdutos()">Produtos</a>
+    <a>Pedidos</a>
+    <a>Vendas</a>
+    <a>Clientes</a>
+    <a class="active" href="#">Fornecedores</a>
+    <a (click)="chamarFuncionarios()">Funcionários</a>
+    <a>Relatórios</a>
+    <a>?</a>
+  </nav>
+</header>
+<div class="main-content">
+  <div class="form-container">
+    <h1 class="form-title">Lista de Fornecedores</h1>
+    <div class="acoes-container">
+      <input class="filtro" type="text" [(ngModel)]="filtroNome" [(ngModel)]="filtroCNPJ"
+        placeholder="Buscar por nome ou CNPJ" />
+      <button (click)="chamarCadastroFornecedores()" class="btn-adicionar">
+        + Adicionar Fornecedor
+      </button>
+    </div>
+    <div class="form-section">
+      <table class="tabela-fornecedores">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>Rua</th>
+            <th>Nº</th>
+            <th>Bairro</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>CEP</th>
+            <th>Data de Criação</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fornecedor of fornecedoresFiltrados">
+            <td>{{ fornecedor.nome }}</td>
+            <td>{{ formatarCNPJ(fornecedor.cnpj) }}</td>
+            <td>{{ formatarTelefone(fornecedor.telefone) }}</td>
+            <td>{{ fornecedor.email }}</td>
+            <td>{{ fornecedor.rua }}</td>
+            <td>{{ fornecedor.numero }}</td>
+            <td>{{ fornecedor.bairro }}</td>
+            <td>{{ fornecedor.cidade }}</td>
+            <td>{{ fornecedor.estado }}</td>
+            <td>{{ formatarCEP(fornecedor.cep) }}</td>
+            <td>{{ fornecedor.dataCriacao | date:'dd/MM/yyyy' }}</td>
+            <td>
+              <button [routerLink]="['/fornecedores-atualizar', fornecedor.id]">
+                <i class='fa fa-pencil-alt text-primary'></i>
+              </button>
+              <button (click)="abrirModal(fornecedor)">
+                <i class='fa fa-trash-alt text-danger'></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="modal" tabindex="-1" [class.show]="modalAberto" style="display: block;" *ngIf="modalAberto">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar Exclusão</h5>
+        <button type="button" class="btn-close" (click)="fecharModal()"></button>
       </div>
-      <div class="modal" tabindex="-1" [class.show]="modalAberto" style="display: block;" *ngIf="modalAberto">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Confirmar Exclusão</h5>
-              <button type="button" class="btn-close" (click)="fecharModal()"></button>
-            </div>
-            <div class="modal-body">
-              <p>Tem certeza que deseja excluir o fornecedor <strong>{{ fornecedorSelecionado?.nome }}</strong>?</p>
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary" (click)="fecharModal()">Cancelar</button>
-              <button class="btn btn-danger" (click)="excluirFornecedor()">Excluir</button>
-            </div>
-          </div>
-        </div>
+      <div class="modal-body">
+        <p>Tem certeza que deseja excluir o fornecedor <strong>{{ fornecedorSelecionado?.nome }}</strong>?</p>
       </div>
-   
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="fecharModal()">Cancelar</button>
+        <button class="btn btn-danger" (click)="excluirFornecedor()">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>

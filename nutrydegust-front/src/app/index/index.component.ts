@@ -13,20 +13,28 @@ export class IndexComponent {
   
   constructor(private route: Router) { }
 
-  chamarFornecedores() {
-    this.route.navigate(['fornecedores']);
+   chamarInicio(): void {
+    this.route.navigate(['/index']);
   }
 
-  chamarProdutos() {
-    this.route.navigate(['produtos']);
+  chamarEstoque(): void {
+    this.route.navigate(['/estoques']);
   }
 
-  chamarEstoque() {
-    this.route.navigate(['estoque']);
+  chamarProdutos(): void {
+    this.route.navigate(['/produtos']);
   }
 
-  chamarFuncionarios() {
-    this.route.navigate(['funcionarios']);
+  chamarFornecedores(): void {
+    this.route.navigate(['/fornecedores']);
+  }
+
+  chamarFuncionarios(): void {
+    this.route.navigate(['/funcionarios']);
+  }
+
+  voltarParaLista(): void {
+    this.route.navigate(['/estoque']);
   }
 
 }

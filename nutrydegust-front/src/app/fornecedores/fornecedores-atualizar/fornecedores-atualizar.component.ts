@@ -167,13 +167,6 @@ export class FornecedoresAtualizarComponent implements OnInit {
       });
     }
   }
-  chamarFornecedores() {
-    this.router.navigate(['fornecedores']);
-  }
-
-  chamarIndex() {
-    this.router.navigate(['index']);
-  }
 
   formatarParaExibicao(valor: string, tipo: string): string {
     if (!valor) return '';
@@ -189,5 +182,28 @@ export class FornecedoresAtualizarComponent implements OnInit {
         return valor;
     }
   }
+  chamarInicio(): void {
+    this.router.navigate(['/index']);
+  }
 
+  chamarEstoque(): void {
+    this.router.navigate(['/estoques']);
+  }
+
+  chamarProdutos(): void {
+    this.router.navigate(['/produtos']);
+  }
+
+  chamarFornecedores(): void {
+    this.router.navigate(['/fornecedores']);
+  }
+
+  chamarFuncionarios(): void {
+    this.router.navigate(['/funcionarios']);
+  }
+  
+  voltarParaLista(): void {
+    this.router.navigate(['/fornecedores']);
+  }
 }
+

@@ -1,18 +1,17 @@
 <header>
   <img src="assets/img/logo.png" alt="Nutry e Degust" class="logo">
   <nav>
-    <a href="../inicio/inicio.html">Início</a>
-    <a href="../estoque/estoque.html">Estoque</a>
-    <a href="../produtos/produtos.html">Produtos</a>
-    <a href="../pedidos/pedidos.html">Pedidos</a>
-    <a href="../vendas/vendas.html">Vendas</a>
-    <a href="../clientes/clientes.html">Clientes</a>
-    <a href="../fornecedores/fornecedores.html">Fornecedores</a>
-    <a href="../funcionarios/funcionarios.html">Funcionários</a>
-    <a href="../relatorios/relatorios.html">Relatórios</a>
+    <a [routerLink]="['/index']">Início</a>
+    <a [routerLink]="['/estoques']">Estoque</a>
+    <a [routerLink]="['/produtos']">Produtos</a>
+    <a>Pedidos</a>
+    <a>Vendas</a>
+    <a>Clientes</a>
+    <a [routerLink]="['/fornecedores']">Fornecedores</a>
+    <a [routerLink]="['/funcionarios']">Funcionários</a>
+    <a>Relatórios</a>
     <a href="#" class="help-button">?</a>
-
-</nav>
+  </nav>
 </header>
 
 <div class="main-content">

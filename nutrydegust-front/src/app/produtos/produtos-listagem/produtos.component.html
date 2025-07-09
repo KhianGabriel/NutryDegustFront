@@ -1,16 +1,16 @@
 <header>
-  <img src="assets/img/logo.png" alt="Nutry e Degust" class="logo">
+  <img src="../../../assets/img/logo.png" alt="Nutry e Degust" class="logo">
   <nav>
-    <a href="../inicio/index.html">Início</a>
-    <a href="../estoque/estoque.html">Estoque</a>
-    <a class="active" href="#">Produtos</a>
-    <a href="../pedidos/pedidos.html">Pedidos</a>
-    <a href="../vendas/vendas.html">Vendas</a>
-    <a href="../clientes/clientes.html">Clientes</a>
-    <a href="../funcionarios/funcionarios.html">Funcionários</a>
-    <a href="../relatorios/relatorios.html">Relatórios</a>
-    <a href="#" class="help-button">?</a>
-
+    <a [routerLink]="['/index']" routerLinkActive="active">Início</a>
+    <a [routerLink]="['/estoque']" routerLinkActive="active">Estoque</a>
+    <a [routerLink]="['/produtos']" routerLinkActive="active">Produtos</a>
+    <a [routerLink]="['/pedidos']" routerLinkActive="active">Pedidos</a>
+    <a [routerLink]="['/vendas']" routerLinkActive="active">Vendas</a>
+    <a [routerLink]="['/clientes']" routerLinkActive="active">Clientes</a>
+    <a [routerLink]="['/fornecedores']" routerLinkActive="active">Fornecedores</a>
+    <a [routerLink]="['/funcionarios']" routerLinkActive="active">Funcionários</a>
+    <a [routerLink]="['/relatorios']" routerLinkActive="active">Relatórios</a>
+    <a [routerLink]="['/ajuda']" class="help-button" routerLinkActive="active">?</a>
   </nav>
 </header>
 

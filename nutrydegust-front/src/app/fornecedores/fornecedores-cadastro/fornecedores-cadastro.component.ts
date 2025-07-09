@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { FornecedorService, FornecedorCadastro} from './fornecedor-cadastro.service';
+import { FornecedorService, FornecedorCadastro} from './fornecedores-cadastro.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ViaCepService } from './viacep.service';
 import { ToastrService } from 'ngx-toastr';
@@ -146,12 +146,28 @@ export class FornecedoresCadastroComponent implements OnInit {
     }
   }
   
-  chamarFornecedores() {
-    this.route.navigate(['fornecedores']);
+  chamarInicio(): void {
+    this.route.navigate(['/index']);
   }
 
-  chamarIndex() {
-    this.route.navigate(['index']);
+  chamarEstoque(): void {
+    this.route.navigate(['/estoques']); 
+  }
+
+  chamarProdutos(): void {
+    this.route.navigate(['/produtos']);
+  }
+
+  chamarFornecedores(): void {
+    this.route.navigate(['/fornecedores']);
+  }
+
+  chamarFuncionarios(): void {
+    this.route.navigate(['/funcionarios']);
+  }
+  
+  voltarParaLista(): void {
+    this.route.navigate(['/fornecedores']);
   }
 
 }

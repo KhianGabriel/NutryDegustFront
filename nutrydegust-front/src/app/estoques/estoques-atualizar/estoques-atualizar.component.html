@@ -2,15 +2,15 @@
   <img src="../../../assets/img/logo.png" alt="Nutry e Degust" class="logo">
   <nav>
     <a (click)="chamarInicio()">Início</a>
-    <a class="active" href="#">Estoque</a> <!-- Assumindo que esta é a página de edição de Estoque -->
+    <a class="active" href="#">Estoque</a>
     <a (click)="chamarProdutos()">Produtos</a>
-    <a href="../pedidos/pedidos.html">Pedidos</a>
-    <a href="../vendas/vendas.html">Vendas</a>
-    <a href="../clientes/clientes.html">Clientes</a>
+    <a>Pedidos</a>
+    <a>Vendas</a>
+    <a>Clientes</a>
     <a (click)="chamarFornecedores()">Fornecedores</a>
     <a (click)="chamarFuncionarios()">Funcionários</a>
-    <a href="../relatorios/relatorios.html">Relatórios</a>
-    <a href="#" class="help-button">?</a>
+    <a>Relatórios</a>
+    <a>?</a>
   </nav>
 </header>
 
@@ -54,7 +54,7 @@
           <!-- Ajuste o type="submit" para chamar o método de atualização do estoque -->
           <button type="submit" class="btn btn-save" id="btnSalvarEstoque">Salvar</button>
           <!-- Ajuste o (click) para chamar o método de navegação para a lista de estoques -->
-          <button (click)="chamarEstoques()" type="button" class="btn btn-cancel" id="btnCancelarEstoque">Cancelar</button>
+          <button (click)="chamarEstoque()" type="button" class="btn btn-cancel" id="btnCancelarEstoque">Cancelar</button>
         </div>
       </form>
     </div> 

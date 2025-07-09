@@ -27,9 +27,9 @@ export const routes: Routes = [
     {path: 'produtos', component: ProdutosComponent},
     {path: 'produtos-cadastro', component: ProdutosCadastroComponent},
     {path: 'produtos-atualizar/:id', component: ProdutosAtualizarComponent}, // Atualizar por ID
-    {path: 'estoque', component: EstoquesComponent},
-    {path: 'estoque-cadastro', component: EstoquesCadastroComponent},
-    {path: 'estoque-atualizar/:id', component: EstoquesAtualizarComponent}, // Atualizar por ID
+    {path: 'estoques', component: EstoquesComponent},
+    {path: 'estoques-cadastro', component: EstoquesCadastroComponent},
+    {path: 'estoques-atualizar/:id', component: EstoquesAtualizarComponent}, // Atualizar por ID
 ];
 
 @NgModule({

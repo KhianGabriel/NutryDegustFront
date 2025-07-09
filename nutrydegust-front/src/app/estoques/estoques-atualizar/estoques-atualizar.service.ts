@@ -2,26 +2,49 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface Fornecedor {
+export interface Estoque {
   id: string;
   nome: string;
 }
 
+export interface RequestEstoqueCreate {
+  nome: string;
+}
+
+export interface RequestEstoquePut {
+  nome: string;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
-export class FornecedorService {
+export class EstoqueService {
 
-  private apiUrl = 'http://localhost:8080/estoque'; // URL da API
+  private apiUrl = 'http://localhost:8080/estoque'; 
 
   constructor(private http: HttpClient) { }
 
-  getAllFornecedor(): Observable<Fornecedor[]> {
-    return this.http.get<Fornecedor[]>(this.apiUrl);
+  getAllEstoques(): Observable<Estoque[]> { 
+    return this.http.get<Estoque[]>(this.apiUrl);
   }
 
-  excluirFornecedor(id: string): Observable<void> {
-      const url = `${this.apiUrl}/${id}`; // URL do endpoint de exclusão
-      return this.http.delete<void>(url);
-  }  
+  getEstoqueById(id: string): Observable<Estoque> { 
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<Estoque>(url);
+  }
+
+  cadastrarEstoque(estoque: RequestEstoqueCreate): Observable<void> {
+    return this.http.post<void>(this.apiUrl, estoque);
+  }
+
+  atualizarEstoque(id: string, estoque: RequestEstoquePut): Observable<Estoque> { 
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.put<Estoque>(url, estoque);
+  }
+
+  excluirEstoque(id: string): Observable<void> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete<void>(url);
+  }
 }

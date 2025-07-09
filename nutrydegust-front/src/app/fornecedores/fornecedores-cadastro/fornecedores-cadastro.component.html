@@ -1,145 +1,146 @@
+<header>
+  <img src="assets/img/logo.png" alt="Nutry e Degust" class="logo">
+  <nav>
+    <a (click)="chamarInicio()">Início</a>
+    <a (click)="chamarEstoque()">Estoque</a>
+    <a (click)="chamarProdutos()">Produtos</a>
+    <a>Pedidos</a>
+    <a>Vendas</a>
+    <a>Clientes</a>
+    <a class="active" href="#">Fornecedores</a>
+    <a (click)="chamarFuncionarios()">Funcionários</a>
+    <a>Relatórios</a>
+    <a>?</a>
+  </nav>
+</header>
 
-  <header>
-    <img src="assets/img/logo.png" alt="Nutry e Degust" class="logo">
-    <nav>
-      <a (click)="chamarIndex()">Início</a>
-      <a href="../estoque/estoque.html">Estoque</a>
-      <a href="../produtos/produtos.html">Produtos</a>
-      <a href="../pedidos/pedidos.html">Pedidos</a>
-      <a href="../vendas/vendas.html">Vendas</a>
-      <a href="../clientes/clientes.html">Clientes</a>
-      <a (click)="chamarFornecedores()">Fornecedores</a>
-      <a href="../funcionarios/funcionarios.html">Funcionários</a>
-      <a href="../relatorios/relatorios.html">Relatórios</a>
-      <a href="#" class="help-button">?</a>
-    </nav>
-  </header>
-
-  <div class="main-content">
-    <div class="form-container">
-      <h1 class="form-title">Cadastro de Fornecedor</h1>
-      <div class="form-section">
-        <h3 class="section-title">Preencha os Dados do Fornecedor</h3>
-        <form [formGroup]="fornecedorForm" (ngSubmit)="cadastrarFornecedor()">
-          <div class="form-row">
-            <div class="form-field">
-              <label for="nomeFornecedor">Nome do Fornecedor:*</label>
-              <input type="text" formControlName="nome" id="nomeFornecedor">
-              <div class="erro" *ngIf="errosServidor?.nome">
-                {{ errosServidor.nome }}
-              </div>
+<div class="main-content">
+  <div class="form-container">
+    <h1 class="form-title">Cadastro de Fornecedor</h1>
+    <div class="form-section">
+      <h3 class="section-title">Preencha os Dados do Fornecedor</h3>
+      <form [formGroup]="fornecedorForm" (ngSubmit)="cadastrarFornecedor()">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="nomeFornecedor">Nome do Fornecedor:*</label>
+            <input type="text" formControlName="nome" id="nomeFornecedor">
+            <div class="erro" *ngIf="errosServidor?.nome">
+              {{ errosServidor.nome }}
             </div>
-            <div class="form-field">
-              <label for="cnpjFornecedor">CNPJ:*</label>
-              <input type="text" (input)="formatarCNPJ($event)" formControlName="cnpj" id="cnpjFornecedor" maxlength="18">
-              <div class="erro" *ngIf="errosServidor?.cnpj">
-                {{ errosServidor.cnpj }}
+          </div>
+          <div class="form-field">
+            <label for="cnpjFornecedor">CNPJ:*</label>
+            <input type="text" (input)="formatarCNPJ($event)" formControlName="cnpj" id="cnpjFornecedor" maxlength="18">
+            <div class="erro" *ngIf="errosServidor?.cnpj">
+              {{ errosServidor.cnpj }}
             </div>
           </div>
         </div>
 
-          <h3 class="section-title">Contatos do Fornecedor:</h3>
+        <h3 class="section-title">Contatos do Fornecedor:</h3>
 
-          <div class="form-row">
-            <div class="form-field">
-              <label for="emailFornecedor">Email:*</label>
-              <input type="email" formControlName="email" id="emailFornecedor">
-              <div class="erro" *ngIf="errosServidor?.email">
-                {{ errosServidor.email }}
-            </div>
-            </div>
-            <div class="form-field">
-              <label for="telefoneFornecedor">Telefone:*</label>
-              <input type="text" formControlName="telefone" id="telefoneFornecedor" (input)="formatarTelefone($event)">
-              <div class="erro" *ngIf="errosServidor?.telefone">
-                {{ errosServidor.telefone }}
+        <div class="form-row">
+          <div class="form-field">
+            <label for="emailFornecedor">Email:*</label>
+            <input type="email" formControlName="email" id="emailFornecedor">
+            <div class="erro" *ngIf="errosServidor?.email">
+              {{ errosServidor.email }}
             </div>
           </div>
+          <div class="form-field">
+            <label for="telefoneFornecedor">Telefone:*</label>
+            <input type="text" formControlName="telefone" id="telefoneFornecedor" (input)="formatarTelefone($event)">
+            <div class="erro" *ngIf="errosServidor?.telefone">
+              {{ errosServidor.telefone }}
+            </div>
           </div>
+        </div>
 
-          <h3 class="section-title">Endereço do Fornecedor:</h3>
+        <h3 class="section-title">Endereço do Fornecedor:</h3>
 
-          <div class="form-row">
-            <div class="form-field" style="flex: 2.3;">
-              <label for="cepFornecedor">CEP:*</label>
-              <input type="text" formControlName="cep" id="cepFornecedor" maxlength="9" (blur)="buscarEnderecoPorCep()" (input)="formatarCEP($event)">
-              <div class="erro" *ngIf="errosServidor?.cep">
-                {{ errosServidor.cep }}
-              </div>
-            </div>
-            <div class="form-field small">
-              <label for="estadoFornecedor">UF:*</label>
-              <select formControlName="estado" id="estadoFornecedor">
-                <option value="" selected></option>
-                <option value="AC">Acre</option>
-                <option value="AL">Alagoas</option>
-                <option value="AP">Amapá</option>
-                <option value="AM">Amazonas</option>
-                <option value="BA">Bahia</option>
-                <option value="CE">Ceará</option>
-                <option value="DF">Distrito Federal</option>
-                <option value="ES">Espírito Santo</option>
-                <option value="GO">Goiás</option>
-                <option value="MA">Maranhão</option>
-                <option value="MT">Mato Grosso</option>
-                <option value="MS">Mato Grosso do Sul</option>
-                <option value="MG">Minas Gerais</option>
-                <option value="PA">Pará</option>
-                <option value="PB">Paraíba</option>
-                <option value="PR">Paraná</option>
-                <option value="PE">Pernambuco</option>
-                <option value="PI">Piauí</option>
-                <option value="RJ">Rio de Janeiro</option>
-                <option value="RN">Rio Grande do Norte</option>
-                <option value="RS">Rio Grande do Sul</option>
-                <option value="RO">Rondônia</option>
-                <option value="RR">Roraima</option>
-                <option value="SC">Santa Catarina</option>
-                <option value="SP">São Paulo</option>
-                <option value="SE">Sergipe</option>
-                <option value="TO">Tocantins</option>
-              </select>
-              <div class="erro" *ngIf="errosServidor?.estado">
-                {{ errosServidor.estado }}
-              </div>
-            </div>
-            <div class="form-field" style="flex: 1.5;">
-              <label for="cidadeFornecedor">Cidade:*</label>
-              <input type="text" formControlName="cidade" id="cidadeFornecedor">
-              <div class="erro" *ngIf="errosServidor?.cidade">
-                {{ errosServidor.cidade }}
-              </div>
+        <div class="form-row">
+          <div class="form-field" style="flex: 2.3;">
+            <label for="cepFornecedor">CEP:*</label>
+            <input type="text" formControlName="cep" id="cepFornecedor" maxlength="9" (blur)="buscarEnderecoPorCep()"
+              (input)="formatarCEP($event)">
+            <div class="erro" *ngIf="errosServidor?.cep">
+              {{ errosServidor.cep }}
             </div>
           </div>
+          <div class="form-field small">
+            <label for="estadoFornecedor">UF:*</label>
+            <select formControlName="estado" id="estadoFornecedor">
+              <option value="" selected></option>
+              <option value="AC">Acre</option>
+              <option value="AL">Alagoas</option>
+              <option value="AP">Amapá</option>
+              <option value="AM">Amazonas</option>
+              <option value="BA">Bahia</option>
+              <option value="CE">Ceará</option>
+              <option value="DF">Distrito Federal</option>
+              <option value="ES">Espírito Santo</option>
+              <option value="GO">Goiás</option>
+              <option value="MA">Maranhão</option>
+              <option value="MT">Mato Grosso</option>
+              <option value="MS">Mato Grosso do Sul</option>
+              <option value="MG">Minas Gerais</option>
+              <option value="PA">Pará</option>
+              <option value="PB">Paraíba</option>
+              <option value="PR">Paraná</option>
+              <option value="PE">Pernambuco</option>
+              <option value="PI">Piauí</option>
+              <option value="RJ">Rio de Janeiro</option>
+              <option value="RN">Rio Grande do Norte</option>
+              <option value="RS">Rio Grande do Sul</option>
+              <option value="RO">Rondônia</option>
+              <option value="RR">Roraima</option>
+              <option value="SC">Santa Catarina</option>
+              <option value="SP">São Paulo</option>
+              <option value="SE">Sergipe</option>
+              <option value="TO">Tocantins</option>
+            </select>
+            <div class="erro" *ngIf="errosServidor?.estado">
+              {{ errosServidor.estado }}
+            </div>
+          </div>
+          <div class="form-field" style="flex: 1.5;">
+            <label for="cidadeFornecedor">Cidade:*</label>
+            <input type="text" formControlName="cidade" id="cidadeFornecedor">
+            <div class="erro" *ngIf="errosServidor?.cidade">
+              {{ errosServidor.cidade }}
+            </div>
+          </div>
+        </div>
 
-          <div class="form-row">
-            <div class="form-field" style="flex: 2;">
-              <label for="ruaFornecedor">Rua:*</label>
-              <input type="text" formControlName="rua" id="ruaFornecedor">
-              <div class="erro" *ngIf="errosServidor?.rua">
-                {{ errosServidor.rua }}
-              </div>
-            </div>
-            <div class="form-field small">
-              <label for="nFornecedor">Número:*</label>
-              <input type="text" formControlName="numero" id="nFornecedor">
-              <div class="erro" *ngIf="errosServidor?.numero">
-                {{ errosServidor.numero }}
-              </div>
-            </div>
-            <div class="form-field" style="flex: 1;">
-              <label for="bairroFornecedor">Bairro:*</label>
-              <input type="text" formControlName="bairro" id="bairroFornecedor">
-              <div class="erro" *ngIf="errosServidor?.bairro">
-                {{ errosServidor.bairro }}
-              </div>
+        <div class="form-row">
+          <div class="form-field" style="flex: 2;">
+            <label for="ruaFornecedor">Rua:*</label>
+            <input type="text" formControlName="rua" id="ruaFornecedor">
+            <div class="erro" *ngIf="errosServidor?.rua">
+              {{ errosServidor.rua }}
             </div>
           </div>
-          <div class="form-buttons">
-            <button type="submit" class="btn btn-save" id="btnSalvarFornecedor">Salvar</button>
-            <button (click)="chamarFornecedores()" type="button" class="btn btn-cancel" id="btnCancelarFornecedor">Cancelar</button>
+          <div class="form-field small">
+            <label for="nFornecedor">Número:*</label>
+            <input type="text" formControlName="numero" id="nFornecedor">
+            <div class="erro" *ngIf="errosServidor?.numero">
+              {{ errosServidor.numero }}
+            </div>
           </div>
-        </form>
-      </div>
+          <div class="form-field" style="flex: 1;">
+            <label for="bairroFornecedor">Bairro:*</label>
+            <input type="text" formControlName="bairro" id="bairroFornecedor">
+            <div class="erro" *ngIf="errosServidor?.bairro">
+              {{ errosServidor.bairro }}
+            </div>
+          </div>
+        </div>
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-save" id="btnSalvarFornecedor">Salvar</button>
+          <button (click)="chamarFornecedores()" type="button" class="btn btn-cancel"
+            id="btnCancelarFornecedor">Cancelar</button>
+        </div>
+      </form>
     </div>
   </div>
+</div>

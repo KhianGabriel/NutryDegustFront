@@ -2,7 +2,7 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f7d046;
-    background-image: url('../img/background.png');
+    background-image: url('../../../assets/img/background.png');
     background-size: 1734.81px 800px;
     background-repeat: repeat;
     background-position: center;
@@ -389,4 +389,3 @@ nav a:last-child {
   color: #555;
   text-align: center;
 }
-

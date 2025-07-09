@@ -33,7 +33,7 @@
         <div class="form-row">
           <div class="form-field">
             <label for="nomeProduto">Nome do Produto:*</label>
-            <input type="text" formControlName="nome" id="nomeProduto" placeholder="Digite o nome do produto">
+            <input type="text" formControlName="nome" id="nomeProduto" placeholder="Digite o nome do produto:">
             <div class="erro" *ngIf="errosServidor?.nome">
               {{ errosServidor.nome }}
             </div>
@@ -56,14 +56,14 @@
         <div class="form-row">
           <div class="form-field">
             <label for="descricaoProduto">Descrição do Produto:</label>
-            <input type="text" formControlName="descricao" id="descricaoProduto" placeholder="Digite uma descrição">
+            <input type="text" formControlName="descricao" id="descricaoProduto" placeholder="Digite uma descrição:">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-field">
             <label for="precoVenda">Preço do Produto:*</label>
-            <input type="number" formControlName="precoVenda" id="precoVenda" placeholder="Digite o valor de venda">
+            <input type="number" formControlName="precoVenda" id="precoVenda" placeholder="Digite o valor de venda:">
             <div class="erro" *ngIf="errosServidor?.precoVenda">
               {{ errosServidor.precoVenda }}
             </div>
@@ -74,7 +74,7 @@
           </div>
           <div class="form-field">
             <label for="precoCompra">Preço Pago pelo Produto:*</label>
-            <input type="number" formControlName="precoCompra" id="precoCompra" placeholder="Digite o valor de compra">
+            <input type="number" formControlName="precoCompra" id="precoCompra" placeholder="Digite o valor de compra:">
             <div class="erro" *ngIf="errosServidor?.precoCompra">
               {{ errosServidor.precoCompra }}
             </div>

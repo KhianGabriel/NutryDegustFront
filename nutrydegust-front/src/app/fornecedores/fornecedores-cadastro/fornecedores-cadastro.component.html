@@ -23,14 +23,14 @@
         <div class="form-row">
           <div class="form-field">
             <label for="nomeFornecedor">Nome do Fornecedor:*</label>
-            <input type="text" formControlName="nome" id="nomeFornecedor">
+            <input type="text" formControlName="nome" id="nomeFornecedor" placeholder="Digite o nome do Fornecedor:">
             <div class="erro" *ngIf="errosServidor?.nome">
               {{ errosServidor.nome }}
             </div>
           </div>
           <div class="form-field">
             <label for="cnpjFornecedor">CNPJ:*</label>
-            <input type="text" (input)="formatarCNPJ($event)" formControlName="cnpj" id="cnpjFornecedor" maxlength="18">
+            <input type="text" (input)="formatarCNPJ($event)" formControlName="cnpj" id="cnpjFornecedor" maxlength="18" placeholder="Digite o CNPJ:">
             <div class="erro" *ngIf="errosServidor?.cnpj">
               {{ errosServidor.cnpj }}
             </div>
@@ -42,14 +42,14 @@
         <div class="form-row">
           <div class="form-field">
             <label for="emailFornecedor">Email:*</label>
-            <input type="email" formControlName="email" id="emailFornecedor">
+            <input type="email" formControlName="email" id="emailFornecedor" placeholder="Digite o Email:">
             <div class="erro" *ngIf="errosServidor?.email">
               {{ errosServidor.email }}
             </div>
           </div>
           <div class="form-field">
             <label for="telefoneFornecedor">Telefone:*</label>
-            <input type="text" formControlName="telefone" id="telefoneFornecedor" (input)="formatarTelefone($event)">
+            <input type="text" formControlName="telefone" id="telefoneFornecedor" (input)="formatarTelefone($event)" placeholder="Digite o Telefone:">
             <div class="erro" *ngIf="errosServidor?.telefone">
               {{ errosServidor.telefone }}
             </div>
@@ -61,7 +61,7 @@
         <div class="form-row">
           <div class="form-field" style="flex: 2.3;">
             <label for="cepFornecedor">CEP:*</label>
-            <input type="text" formControlName="cep" id="cepFornecedor" maxlength="9" (blur)="buscarEnderecoPorCep()"
+            <input type="text" formControlName="cep" id="cepFornecedor" maxlength="9" (blur)="buscarEnderecoPorCep()" placeholder="Digite o CEP:"
               (input)="formatarCEP($event)">
             <div class="erro" *ngIf="errosServidor?.cep">
               {{ errosServidor.cep }}
@@ -70,7 +70,7 @@
           <div class="form-field small">
             <label for="estadoFornecedor">UF:*</label>
             <select formControlName="estado" id="estadoFornecedor">
-              <option value="" selected></option>
+              <option value="" disabled selected>Selecione a UF</option>
               <option value="AC">Acre</option>
               <option value="AL">Alagoas</option>
               <option value="AP">Amapá</option>
@@ -105,7 +105,7 @@
           </div>
           <div class="form-field" style="flex: 1.5;">
             <label for="cidadeFornecedor">Cidade:*</label>
-            <input type="text" formControlName="cidade" id="cidadeFornecedor">
+            <input type="text" formControlName="cidade" id="cidadeFornecedor" placeholder="Digite a Cidade:">
             <div class="erro" *ngIf="errosServidor?.cidade">
               {{ errosServidor.cidade }}
             </div>
@@ -115,21 +115,21 @@
         <div class="form-row">
           <div class="form-field" style="flex: 2;">
             <label for="ruaFornecedor">Rua:*</label>
-            <input type="text" formControlName="rua" id="ruaFornecedor">
+            <input type="text" formControlName="rua" id="ruaFornecedor" placeholder="Digite a Rua:">
             <div class="erro" *ngIf="errosServidor?.rua">
               {{ errosServidor.rua }}
             </div>
           </div>
           <div class="form-field small">
             <label for="nFornecedor">Número:*</label>
-            <input type="text" formControlName="numero" id="nFornecedor">
+            <input type="text" formControlName="numero" id="nFornecedor" placeholder="Digite o Número:">
             <div class="erro" *ngIf="errosServidor?.numero">
               {{ errosServidor.numero }}
             </div>
           </div>
           <div class="form-field" style="flex: 1;">
             <label for="bairroFornecedor">Bairro:*</label>
-            <input type="text" formControlName="bairro" id="bairroFornecedor">
+            <input type="text" formControlName="bairro" id="bairroFornecedor" placeholder="Digite o Bairro">
             <div class="erro" *ngIf="errosServidor?.bairro">
               {{ errosServidor.bairro }}
             </div>

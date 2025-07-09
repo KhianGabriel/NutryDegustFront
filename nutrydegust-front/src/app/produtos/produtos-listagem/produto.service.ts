@@ -15,8 +15,9 @@ export interface Produto {
   quantidadeEmEstoque: number;
   loteAtual: string;
   dataCriacao: Date;
-  nomeFornecedor: string; 
-  nomeEstoque: string; 
+  nomeFornecedor: string;
+  nomeEstoque: string;
+  codigo: string; // Adicionada a propriedade 'codigo'
 }
 
 export interface RequestProdutoCreate {
@@ -37,10 +38,10 @@ export interface RequestProdutoPut {
   descricao?: string; // Opcional
   precoVenda: number;
   precoCompra: number;
-  dataValidade: string; 
+  dataValidade: string;
   categoria: string;
-  nomeFornecedor: string; 
-  nomeEstoque: string; 
+  nomeFornecedor: string;
+  nomeEstoque: string;
   quantidadeEmEstoque: number;
   loteAtual: string;
 }

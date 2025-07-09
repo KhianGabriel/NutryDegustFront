@@ -1,16 +1,16 @@
 <header>
   <img src="../../../assets/img/logo.png" alt="Nutry e Degust" class="logo">
   <nav>
-    <a [routerLink]="['/index']" routerLinkActive="active">Início</a>
-    <a [routerLink]="['/estoque']" routerLinkActive="active">Estoque</a>
-    <a [routerLink]="['/produtos']" routerLinkActive="active">Produtos</a>
-    <a [routerLink]="['/pedidos']" routerLinkActive="active">Pedidos</a>
-    <a [routerLink]="['/vendas']" routerLinkActive="active">Vendas</a>
-    <a [routerLink]="['/clientes']" routerLinkActive="active">Clientes</a>
-    <a [routerLink]="['/fornecedores']" routerLinkActive="active">Fornecedores</a>
-    <a [routerLink]="['/funcionarios']" routerLinkActive="active">Funcionários</a>
-    <a [routerLink]="['/relatorios']" routerLinkActive="active">Relatórios</a>
-    <a [routerLink]="['/ajuda']" class="help-button" routerLinkActive="active">?</a>
+    <a (click)="chamarInicio()">Início</a>
+    <a (click)="chamarEstoque()">Estoque</a>
+    <a (click)="chamarProdutos()" class="active">Produtos</a>
+    <a>Pedidos</a>
+    <a>Vendas</a>
+    <a>Clientes</a>
+    <a (click)="chamarFornecedores()">Fornecedores</a>
+    <a (click)="chamarFuncionarios()">Funcionários</a>
+    <a>Relatórios</a>
+    <a href="#" class="help-button">?</a>
   </nav>
 </header>
 
@@ -19,7 +19,7 @@
     <h1 class="form-title">Lista de Produtos</h1>
 
     <div class="acoes-container">
-      <input class="filtro" type="text" placeholder="Buscar por nome ou código" />
+      <input class="filtro" type="text" placeholder="Buscar por nome ou código..." [(ngModel)]="filtroBusca" />
       <button class="btn-adicionar" (click)="chamarCadastroProdutos()">+ Adicionar Produto</button>
     </div>
 
@@ -39,29 +39,47 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Arroz 5kg</td>
-            <td>PRD001</td>
-            <td>10/12/2025</td>
-            <td>Arroz branco tipo 1</td>
-            <td>R$ 29,90</td>
-            <td>R$ 18,00</td>
-            <td>Fornecedor A</td>
-            <td>Estoque Central</td>
+          <tr *ngFor="let produto of produtosFiltrados">
+            <td>{{ produto.nome }}</td>
+            <td>{{ produto.codigo }}</td>
+            <td>{{ formatarData(produto.dataValidade) }}</td>
+            <td>{{ produto.descricao }}</td>
+            <td>{{ formatarMoeda(produto.precoVenda) }}</td>
+            <td>{{ formatarMoeda(produto.precoCompra) }}</td>
+            <td>{{ produto.nomeFornecedor }}</td>
+            <td>{{ produto.quantidadeEmEstoque }}</td>
             <td>
-              <button title="Editar">
+              <button [routerLink]="['/produtos-atualizar', produto.id]" title="Editar">
                 <i class="fa fa-pencil-alt text-primary"></i>
               </button>
-              <button title="Excluir">
+              <button (click)="abrirModal(produto)" title="Excluir">
                 <i class="fa fa-trash-alt text-danger"></i>
-              </button>
-              <button title="Detalhes">
-                <i class="fa fa-info-circle text-info"></i>
               </button>
             </td>
           </tr>
+          <tr *ngIf="produtosFiltrados.length === 0">
+            <td colspan="9" style="text-align: center;">Nenhum produto encontrado.</td>
+          </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" [class.show]="modalAberto" style="display: block;" *ngIf="modalAberto">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar Exclusão</h5>
+        <button type="button" class="btn-close" (click)="fecharModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Tem certeza que deseja excluir o produto <strong>{{ produtoSelecionado?.nome }}</strong>?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="fecharModal()">Cancelar</button>
+        <button class="btn btn-danger" (click)="excluirProduto()">Excluir</button>
+      </div>
     </div>
   </div>
 </div>

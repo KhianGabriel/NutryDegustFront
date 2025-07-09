@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms'; 
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { ProdutoAtualizarService, Produto, RequestProdutoPut } from './produtos-atualizar.service';
-
+import { FornecedorService, Fornecedor } from '../../fornecedores/fornecedores-listagem/fornecedores.service'; // Import do FornecedorService
+import { EstoqueService, Estoque } from '../../estoques/estoques-listagem/estoques.service'; // Import do EstoqueService
 
 @Component({
-  selector: 'app-produtos-atualizar', 
+  selector: 'app-produtos-atualizar',
   standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule 
+    RouterModule
   ],
   templateUrl: './produtos-atualizar.component.html',
   styleUrls: ['./produtos-atualizar.component.css']
@@ -24,21 +25,25 @@ export class ProdutosAtualizarComponent implements OnInit {
   produtoForm!: FormGroup;
   produtoId: string | null = null;
   errosServidor: any = {};
+  fornecedores: Fornecedor[] = []; // Propriedade para armazenar fornecedores
+  estoques: Estoque[] = [];       // Propriedade para armazenar estoques
 
   constructor(
-    private fb: FormBuilder, 
-    private route: ActivatedRoute, 
-    private router: Router, 
-    private produtoAtualizarService: ProdutoAtualizarService, 
-    private toastr: ToastrService 
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private produtoAtualizarService: ProdutoAtualizarService,
+    private fornecedorService: FornecedorService, // Injeção do FornecedorService
+    private estoqueService: EstoqueService,       // Injeção do EstoqueService
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
-
     this.produtoId = this.route.snapshot.paramMap.get('id');
 
     this.produtoForm = this.fb.group({
       nome: ['', Validators.required],
+      codigo: ['', Validators.required], // Adicionado 'codigo' aqui
       descricao: [''],
       precoVenda: ['', [Validators.required, Validators.min(0)]],
       precoCompra: ['', [Validators.required, Validators.min(0)]],
@@ -50,6 +55,9 @@ export class ProdutosAtualizarComponent implements OnInit {
       loteAtual: ['', Validators.required],
     });
 
+    this.carregarFornecedores(); // Carrega fornecedores
+    this.carregarEstoques();     // Carrega estoques
+
     if (this.produtoId) {
       this.produtoAtualizarService.getProdutoById(this.produtoId).subscribe(
         (produto: Produto) => {
@@ -57,6 +65,7 @@ export class ProdutosAtualizarComponent implements OnInit {
 
           this.produtoForm.patchValue({
             nome: produto.nome,
+            codigo: produto.codigo, // Patch value para 'codigo'
             descricao: produto.descricao,
             precoVenda: produto.precoVenda,
             precoCompra: produto.precoCompra,
@@ -80,13 +89,38 @@ export class ProdutosAtualizarComponent implements OnInit {
     }
   }
 
+  carregarFornecedores(): void {
+    this.fornecedorService.getAllFornecedor().subscribe({
+      next: (dados) => {
+        this.fornecedores = dados;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar fornecedores:', error);
+        this.toastr.error('Erro ao carregar lista de fornecedores.');
+      }
+    });
+  }
+
+  carregarEstoques(): void {
+    this.estoqueService.getAllEstoques().subscribe({
+      next: (dados) => {
+        this.estoques = dados;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar estoques:', error);
+        this.toastr.error('Erro ao carregar lista de estoques.');
+      }
+    });
+  }
+
   atualizarProduto(): void {
-    this.errosServidor = {}; 
+    this.errosServidor = {};
 
     if (this.produtoForm.valid && this.produtoId) {
 
       const produtoParaAtualizar: RequestProdutoPut = {
         nome: this.produtoForm.value.nome,
+        codigo: this.produtoForm.value.codigo, // Incluído 'codigo' na requisição PUT
         descricao: this.produtoForm.value.descricao,
         precoVenda: this.produtoForm.value.precoVenda,
         precoCompra: this.produtoForm.value.precoCompra,
@@ -99,11 +133,11 @@ export class ProdutosAtualizarComponent implements OnInit {
       };
 
       this.produtoAtualizarService.atualizarProduto(this.produtoId, produtoParaAtualizar).subscribe(
-        (response: Produto) => { 
+        (response: Produto) => {
           this.toastr.success('Produto atualizado com sucesso!');
-          this.router.navigate(['/produtos']); 
+          this.router.navigate(['/produtos']);
         },
-        (error: HttpErrorResponse) => { // Captura o erro HTTP
+        (error: HttpErrorResponse) => {
           console.error('Erro ao atualizar produto:', error);
           this.toastr.error('Erro ao atualizar produto. Verifique os dados.');
 
@@ -124,12 +158,13 @@ export class ProdutosAtualizarComponent implements OnInit {
     }
   }
 
+  // Métodos de navegação
   chamarInicio(): void {
     this.router.navigate(['/index']);
   }
 
   chamarEstoque(): void {
-    this.router.navigate(['/estoque']);
+    this.router.navigate(['/estoques']); // Rota corrigida
   }
 
   chamarProdutos(): void {

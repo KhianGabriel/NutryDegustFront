@@ -80,7 +80,7 @@ nav a:last-child {
 
 .main-content {
     flex: 1;
-    max-width: 1800px;
+    max-width: 800px; /* Reduzido de 1800px */
     margin: 20px auto;
     padding: 10px;
     display: flex;
@@ -92,10 +92,10 @@ nav a:last-child {
 .form-container {
     background: white;
     border-radius: 15px;
-    padding: 15px 50px;
+    padding: 15px 30px; /* Reduzido padding horizontal de 50px */
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     width: 100%;
-    max-width: 1700px;
+    max-width: 700px; /* Reduzido de 1700px */
 }
 
 .form-title {
@@ -162,15 +162,15 @@ nav a:last-child {
         margin: 10px auto;
         padding: 10px;
     }
-    
+
     .form-container {
         padding: 20px 40px;
     }
-    
+
     .form-section {
         padding: 20px;
     }
-    
+
     .form-row {
         margin-bottom: 10px;
     }
@@ -255,10 +255,10 @@ td button {
 }
 
 .filtro {
-    padding: 0.5rem; 
+    padding: 0.5rem;
     font-size: 1rem;
     width: 300px;
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
     border-radius: 4px;
 }
 
@@ -341,15 +341,15 @@ td button {
         margin: 10px auto;
         padding: 10px;
     }
-    
+
     .form-container {
         padding: 20px 40px;
     }
-    
+
     .form-section {
         padding: 20px;
     }
-    
+
     .form-row {
         margin-bottom: 10px;
     }

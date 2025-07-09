@@ -6,19 +6,19 @@
 </head>
 <body>
   <header>
-    <img src="../../../assets/img/logo.png" alt="Logo Nutry & Degust" class="logo">
+    <img src="../../../assets/img/logo.png" alt="Nutry e Degust" class="logo">
     <nav>
-    <a [routerLink]="['/index']" routerLinkActive="active">Início</a>
-    <a [routerLink]="['/estoque']" routerLinkActive="active">Estoque</a>
-    <a [routerLink]="['/produtos']" routerLinkActive="active">Produtos</a>
-    <a [routerLink]="['/pedidos']" routerLinkActive="active">Pedidos</a>
-    <a [routerLink]="['/vendas']" routerLinkActive="active">Vendas</a>
-    <a [routerLink]="['/clientes']" routerLinkActive="active">Clientes</a>
-    <a [routerLink]="['/fornecedores']" routerLinkActive="active">Fornecedores</a>
-    <a [routerLink]="['/funcionarios']" routerLinkActive="active">Funcionários</a>
-    <a [routerLink]="['/relatorios']" routerLinkActive="active">Relatórios</a>
-    <a [routerLink]="['/ajuda']" class="help-button" routerLinkActive="active">?</a>
-    </nav> 
+      <a (click)="chamarInicio()">Início</a>
+      <a (click)="chamarEstoque()">Estoque</a>
+      <a (click)="chamarProdutos()" class="active">Produtos</a>
+      <a [routerLink]="['/pedidos']">Pedidos</a>
+      <a [routerLink]="['/vendas']">Vendas</a>
+      <a [routerLink]="['/clientes']">Clientes</a>
+      <a (click)="chamarFornecedores()">Fornecedores</a>
+      <a (click)="chamarFuncionarios()">Funcionários</a>
+      <a [routerLink]="['/relatorios']">Relatórios</a>
+      <a [routerLink]="['/ajuda']" class="help-button">?</a>
+    </nav>
   </header>
 
   <div class="main-content">
@@ -28,59 +28,139 @@
     <div class="form-section">
       <h3 class="section-title">Preencha as informações do produto:</h3>
 
-      <form>
+      <form [formGroup]="produtoForm" (ngSubmit)="cadastrarProduto()">
+
         <div class="form-row">
           <div class="form-field">
-            <label for="nomeProduto">Nome do Produto:</label>
-            <input type="text" id="nomeProduto" placeholder="Digite o nome do produto">
+            <label for="nomeProduto">Nome do Produto:*</label>
+            <input type="text" formControlName="nome" id="nomeProduto" placeholder="Digite o nome do produto">
+            <div class="erro" *ngIf="errosServidor?.nome">
+              {{ errosServidor.nome }}
+            </div>
+            <div class="erro" *ngIf="produtoForm.get('nome')?.invalid && (produtoForm.get('nome')?.dirty || produtoForm.get('nome')?.touched)">
+              <span *ngIf="produtoForm.get('nome')?.errors?.['required']">O nome é obrigatório.</span>
+            </div>
           </div>
           <div class="form-field">
-            <label for="codigoProduto">Código do Produto:</label>
-            <input type="text" id="codigoProduto" placeholder="(Cód. do Produto)">
+            <label for="codigoProduto">Código do Produto:*</label>
+            <input type="text" formControlName="codigo" id="codigoProduto" placeholder="(Cód. do Produto)">
+            <div class="erro" *ngIf="errosServidor?.codigo">
+              {{ errosServidor.codigo }}
+            </div>
+            <div class="erro" *ngIf="produtoForm.get('codigo')?.invalid && (produtoForm.get('codigo')?.dirty || produtoForm.get('codigo')?.touched)">
+              <span *ngIf="produtoForm.get('codigo')?.errors?.['required']">O código é obrigatório.</span>
+            </div>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-field">
             <label for="descricaoProduto">Descrição do Produto:</label>
-            <input type="text" id="descricaoProduto" placeholder="Digite uma descrição">
+            <input type="text" formControlName="descricao" id="descricaoProduto" placeholder="Digite uma descrição">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-field">
-            <label for="precoVenda">Preço do Produto:</label>
-            <input type="text" id="precoVenda" placeholder="Digite o valor de venda">
+            <label for="precoVenda">Preço do Produto:*</label>
+            <input type="number" formControlName="precoVenda" id="precoVenda" placeholder="Digite o valor de venda">
+            <div class="erro" *ngIf="errosServidor?.precoVenda">
+              {{ errosServidor.precoVenda }}
+            </div>
+            <div class="erro" *ngIf="produtoForm.get('precoVenda')?.invalid && (produtoForm.get('precoVenda')?.dirty || produtoForm.get('precoVenda')?.touched)">
+              <span *ngIf="produtoForm.get('precoVenda')?.errors?.['required']">O preço de venda é obrigatório.</span>
+              <span *ngIf="produtoForm.get('precoVenda')?.errors?.['min']">O preço de venda não pode ser negativo.</span>
+            </div>
           </div>
           <div class="form-field">
-            <label for="precoCompra">Preço Pago pelo Produto:</label>
-            <input type="text" id="precoCompra" placeholder="Digite o valor de compra">
+            <label for="precoCompra">Preço Pago pelo Produto:*</label>
+            <input type="number" formControlName="precoCompra" id="precoCompra" placeholder="Digite o valor de compra">
+            <div class="erro" *ngIf="errosServidor?.precoCompra">
+              {{ errosServidor.precoCompra }}
+            </div>
+            <div class="erro" *ngIf="produtoForm.get('precoCompra')?.invalid && (produtoForm.get('precoCompra')?.dirty || produtoForm.get('precoCompra')?.touched)">
+              <span *ngIf="produtoForm.get('precoCompra')?.errors?.['required']">O preço de compra é obrigatório.</span>
+              <span *ngIf="produtoForm.get('precoCompra')?.errors?.['min']">O preço de compra não pode ser negativo.</span>
+            </div>
           </div>
           <div class="form-field">
-            <label for="dataValidade">Data de Validade:</label>
-            <input type="text" id="dataValidade" placeholder="DD/MM/YYYY">
+            <label for="dataValidade">Data de Validade:*</label>
+            <input type="date" formControlName="dataValidade" id="dataValidade" placeholder="DD/MM/YYYY">
+            <div class="erro" *ngIf="errosServidor?.dataValidade">
+              {{ errosServidor.dataValidade }}
+            </div>
+            <div class="erro" *ngIf="produtoForm.get('dataValidade')?.invalid && (produtoForm.get('dataValidade')?.dirty || produtoForm.get('dataValidade')?.touched)">
+              <span *ngIf="produtoForm.get('dataValidade')?.errors?.['required']">A data de validade é obrigatória.</span>
+            </div>
           </div>
         </div>
 
         <div class="form-row">
+            <div class="form-field">
+              <label for="categoria">Categoria:*</label>
+              <input type="text" formControlName="categoria" id="categoria" placeholder="Ex: Alimentos, Bebidas, Limpeza">
+              <div class="erro" *ngIf="errosServidor?.categoria">
+                {{ errosServidor.categoria }}
+              </div>
+              <div class="erro" *ngIf="produtoForm.get('categoria')?.invalid && (produtoForm.get('categoria')?.dirty || produtoForm.get('categoria')?.touched)">
+                <span *ngIf="produtoForm.get('categoria')?.errors?.['required']">A categoria é obrigatória.</span>
+              </div>
+            </div>
+            <div class="form-field">
+                <label for="quantidadeEmEstoque">Quantidade em Estoque:*</label>
+                <input type="number" formControlName="quantidadeEmEstoque" id="quantidadeEmEstoque" placeholder="Ex: 100">
+                <div class="erro" *ngIf="errosServidor?.quantidadeEmEstoque">
+                  {{ errosServidor.quantidadeEmEstoque }}
+                </div>
+                <div class="erro" *ngIf="produtoForm.get('quantidadeEmEstoque')?.invalid && (produtoForm.get('quantidadeEmEstoque')?.dirty || produtoForm.get('quantidadeEmEstoque')?.touched)">
+                  <span *ngIf="produtoForm.get('quantidadeEmEstoque')?.errors?.['required']">A quantidade em estoque é obrigatória.</span>
+                  <span *ngIf="produtoForm.get('quantidadeEmEstoque')?.errors?.['min']">A quantidade não pode ser negativa.</span>
+                </div>
+            </div>
+            <div class="form-field">
+              <label for="loteAtual">Lote Atual:*</label>
+              <input type="text" formControlName="loteAtual" id="loteAtual" placeholder="Ex: Lote A123">
+              <div class="erro" *ngIf="errosServidor?.loteAtual">
+                {{ errosServidor.loteAtual }}
+              </div>
+              <div class="erro" *ngIf="produtoForm.get('loteAtual')?.invalid && (produtoForm.get('loteAtual')?.dirty || produtoForm.get('loteAtual')?.touched)">
+                <span *ngIf="produtoForm.get('loteAtual')?.errors?.['required']">O lote é obrigatório.</span>
+              </div>
+            </div>
+        </div>
+
+        <div class="form-row">
           <div class="form-field">
-            <label for="fornecedor">Nome do Fornecedor:</label>
-            <input type="text" id="fornecedor" placeholder="Ex: Cristina">
-          </div>
-          <div class="form-field">
-            <label for="estoque">Estoque:</label>
-            <select id="estoque">
-              <option value="">Selecione um estoque</option>
-              <option value="central">Estoque Central</option>
-              <option value="loja1">Loja 1</option>
-              <option value="loja2">Loja 2</option>
+            <label for="nomeFornecedor">Nome do Fornecedor:*</label>
+            <select formControlName="nomeFornecedor" id="nomeFornecedor">
+              <option value="" disabled selected>Selecione um fornecedor</option>
+              <option *ngFor="let fornecedor of fornecedores" [value]="fornecedor.nome">{{ fornecedor.nome }}</option>
             </select>
+            <div class="erro" *ngIf="errosServidor?.nomeFornecedor">
+              {{ errosServidor.nomeFornecedor }}
+            </div>
+            <div class="erro" *ngIf="produtoForm.get('nomeFornecedor')?.invalid && (produtoForm.get('nomeFornecedor')?.dirty || produtoForm.get('nomeFornecedor')?.touched)">
+              <span *ngIf="produtoForm.get('nomeFornecedor')?.errors?.['required']">O fornecedor é obrigatório.</span>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="nomeEstoque">Estoque:*</label>
+            <select formControlName="nomeEstoque" id="nomeEstoque">
+              <option value="" disabled selected>Selecione um estoque</option>
+              <option *ngFor="let estoque of estoques" [value]="estoque.nome">{{ estoque.nome }}</option>
+            </select>
+            <div class="erro" *ngIf="errosServidor?.nomeEstoque">
+              {{ errosServidor.nomeEstoque }}
+            </div>
+            <div class="erro" *ngIf="produtoForm.get('nomeEstoque')?.invalid && (produtoForm.get('nomeEstoque')?.dirty || produtoForm.get('nomeEstoque')?.touched)">
+              <span *ngIf="produtoForm.get('nomeEstoque')?.errors?.['required']">O estoque é obrigatório.</span>
+            </div>
           </div>
         </div>
 
         <div class="form-buttons">
           <button type="submit" class="btn btn-save">Salvar</button>
-          <button type="button" class="btn btn-cancel">Cancelar</button>
+          <button type="button" class="btn btn-cancel" (click)="voltarParaLista()">Cancelar</button>
         </div>
       </form>
     </div>

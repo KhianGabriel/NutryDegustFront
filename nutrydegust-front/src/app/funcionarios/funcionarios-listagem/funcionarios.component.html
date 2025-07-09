@@ -18,15 +18,14 @@
   <div class="form-container">
     <h1 class="form-title">Lista de Funcionários</h1>
     <div class="acoes-container">
-      <input class="filtro" type="text" placeholder="Buscar por nome..." [(ngModel)]="filtroNome" />
-      <input class="filtro" type="text" placeholder="Buscar por CPF..." [(ngModel)]="filtroCPF" />
+      <input class="filtro" type="text" placeholder="Buscar por nome ou CPF..." [(ngModel)]="filtroBusca" />
       <button class="btn-adicionar" (click)="chamarCadastroFuncionarios()">+ Adicionar Funcionário</button>
     </div>
 
     <div class="form-section">
       <table class="tabela-funcionarios">
         <thead>
-          <tr> 
+          <tr>
             <th>Nome</th>
             <th>Cargo</th>
             <th>CPF</th>
@@ -83,15 +82,6 @@
         <p><strong>CPF:</strong> {{ formatarCPF(funcionarioSelecionado.cpf) }}</p>
         <p><strong>Email:</strong> {{ funcionarioSelecionado.email }}</p>
         <p><strong>Telefone:</strong> {{ formatarTelefone(funcionarioSelecionado.telefone) }}</p>
-        <p><strong>Salário:</strong> {{ funcionarioSelecionado.salario }}</p>
-        <p><strong>Carga Horária:</strong> {{ funcionarioSelecionado.cargaHoraria }}</p>
-        <p><strong>Atividade:</strong> {{ funcionarioSelecionado.atividade }}</p>
-        <p><strong>CEP:</strong> {{ formatarCEP(funcionarioSelecionado.cep) }}</p>
-        <p><strong>Estado:</strong> {{ funcionarioSelecionado.estado }}</p>
-        <p><strong>Cidade:</strong> {{ funcionarioSelecionado.cidade }}</p>
-        <p><strong>Bairro:</strong> {{ funcionarioSelecionado.bairro }}</p>
-        <p><strong>Rua:</strong> {{ funcionarioSelecionado.rua }}</p>
-        <p><strong>Número:</strong> {{ funcionarioSelecionado.numero }}</p>
         <hr>
         <p>Deseja realmente excluir este funcionário?</p>
       </div>

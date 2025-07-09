@@ -2,16 +2,15 @@
   <img src="assets/img/logo.png" alt="Nutry e Degust" class="logo">
   <nav>
     <a (click)="chamarInicio()">Início</a>
-    <a class="active" href="#">Estoque</a>
+    <a class="active" (click)="chamarEstoque()">Estoque</a>
     <a (click)="chamarProdutos()">Produtos</a>
-    <a>Pedidos</a>
-    <a>Vendas</a>
-    <a>Clientes</a>
+    <a [routerLink]="['/pedidos']">Pedidos</a>
+    <a [routerLink]="['/vendas']">Vendas</a>
+    <a [routerLink]="['/clientes']">Clientes</a>
     <a (click)="chamarFornecedores()">Fornecedores</a>
     <a (click)="chamarFuncionarios()">Funcionários</a>
-    <a>Relatórios</a>
-    <a>?</a>
-
+    <a [routerLink]="['/relatorios']">Relatórios</a>
+    <a [routerLink]="['/ajuda']" class="help-button">?</a>
   </nav>
 </header>
 
@@ -19,7 +18,7 @@
   <div class="form-container">
     <h1 class="form-title">Lista de Estoques</h1>
     <div class="acoes-container">
-      <input class="filtro" type="text" placeholder="Buscar por nome ou categoria" />
+      <input class="filtro" type="text" placeholder="Buscar por nome ou categoria..." [(ngModel)]="filtroBusca" />
       <button class="btn-adicionar" (click)="chamarCadastroEstoque()">+ Adicionar Estoque</button>
     </div>
 
@@ -28,51 +27,50 @@
         <thead>
           <tr>
             <th>Nome do Estoque</th>
-            <th>Categoria</th>
-            <th>Quantidade de Itens</th>
-            <th>Status</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          <!-- Exemplo estático de estoque -->
-          <tr>
-            <td>Estoque Central</td>
-            <td>Alimentos</td>
-            <td>120</td>
-            <td style="color: green; font-weight: bold;">Estável</td>
+          <tr *ngFor="let estoque of estoquesFiltrados">
+            <td>{{ estoque.nome }}</td>
             <td>
-              <button title="Editar">
+              <button title="Editar" (click)="chamarAtualizarEstoque(estoque)">
                 <i class="fa fa-pencil-alt text-primary"></i>
               </button>
-              <button title="Excluir">
+              <button title="Excluir" (click)="abrirModal(estoque)">
                 <i class="fa fa-trash-alt text-danger"></i>
               </button>
-              <button title="Detalhes">
+              <button title="Detalhes" (click)="chamarDetalhesEstoque(estoque)">
                 <i class="fa fa-info-circle text-info"></i>
               </button>
             </td>
           </tr>
-          <tr>
-            <td>Estoque de Bebidas</td>
-            <td>Bebidas</td>
-            <td>15</td>
-            <td style="color: red; font-weight: bold;">Baixo</td>
-            <td>
-              <button title="Editar">
-                <i class="fa fa-pencil-alt text-primary"></i>
-              </button>
-              <button title="Excluir">
-                <i class="fa fa-trash-alt text-danger"></i>
-              </button>
-              <!--Abrir um modal com todos os produtos cadastrados nesse estoque-->
-              <button title="Detalhes">
-                <i class="fa fa-info-circle text-info"></i>
-              </button>
-            </td>
+          <tr *ngIf="estoquesFiltrados.length === 0">
+            <td colspan="2" style="text-align: center;">Nenhum estoque encontrado.</td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" [class.show]="modalAberto" *ngIf="estoqueSelecionado">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar Exclusão</h5>
+        <button type="button" class="btn-close" (click)="fecharModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Tem certeza que deseja excluir o estoque <strong>{{ estoqueSelecionado!.nome }}</strong>?</p>
+        <p *ngIf="estoqueSelecionado!.quantidadeItens && estoqueSelecionado!.quantidadeItens > 0" style="color: red; font-weight: bold;">
+          Este estoque contém {{ estoqueSelecionado!.quantidadeItens }} item(ns). A exclusão não será permitida.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="fecharModal()">Cancelar</button>
+        <button class="btn btn-danger" (click)="excluirEstoque()" [disabled]="estoqueSelecionado.quantidadeItens && estoqueSelecionado.quantidadeItens > 0">Excluir</button>
+      </div>
     </div>
   </div>
 </div>

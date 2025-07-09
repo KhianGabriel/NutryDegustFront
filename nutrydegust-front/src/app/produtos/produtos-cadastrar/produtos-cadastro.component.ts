@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { ProdutoCadastrarService, RequestProdutoCreate } from './produtos-cadastro.service';
+import { FornecedorService, Fornecedor } from '../../fornecedores/fornecedores-listagem/fornecedores.service'; // Import do FornecedorService
+import { EstoqueService, Estoque } from '../../estoques/estoques-listagem/estoques.service'; // Import do EstoqueService
 
 @Component({
   selector: 'app-produtos-cadastro',
@@ -22,17 +24,22 @@ export class ProdutosCadastroComponent implements OnInit {
 
   produtoForm!: FormGroup;
   errosServidor: any = {};
+  fornecedores: Fornecedor[] = []; // Propriedade para armazenar fornecedores
+  estoques: Estoque[] = [];       // Propriedade para armazenar estoques
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private produtoCadastrarService: ProdutoCadastrarService,
+    private fornecedorService: FornecedorService, // Injeção do FornecedorService
+    private estoqueService: EstoqueService,       // Injeção do EstoqueService
     private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
     this.produtoForm = this.fb.group({
       nome: ['', Validators.required],
+      codigo: ['', Validators.required], // Adicionado 'codigo' aqui
       descricao: [''],
       precoVenda: ['', [Validators.required, Validators.min(0)]],
       precoCompra: ['', [Validators.required, Validators.min(0)]],
@@ -42,8 +49,35 @@ export class ProdutosCadastroComponent implements OnInit {
       nomeEstoque: ['', Validators.required],
       quantidadeEmEstoque: ['', [Validators.required, Validators.min(0)]],
       loteAtual: ['', Validators.required],
-      dataUltimaEntrada: ['', Validators.required], // Input type="date" já espera string YYYY-MM-DD
-      dataUltimaSaida: [''] // Opcional
+      // dataUltimaEntrada e dataUltimaSaida não estão no HTML para cadastro
+      // Se necessário, adicione inputs correspondentes no HTML e valide aqui.
+    });
+
+    this.carregarFornecedores();
+    this.carregarEstoques();
+  }
+
+  carregarFornecedores(): void {
+    this.fornecedorService.getAllFornecedor().subscribe({
+      next: (dados) => {
+        this.fornecedores = dados;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar fornecedores:', error);
+        this.toastr.error('Erro ao carregar lista de fornecedores.');
+      }
+    });
+  }
+
+  carregarEstoques(): void {
+    this.estoqueService.getAllEstoques().subscribe({
+      next: (dados) => {
+        this.estoques = dados;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar estoques:', error);
+        this.toastr.error('Erro ao carregar lista de estoques.');
+      }
     });
   }
 
@@ -62,6 +96,7 @@ export class ProdutosCadastroComponent implements OnInit {
         nomeEstoque: this.produtoForm.value.nomeEstoque,
         quantidadeEmEstoque: this.produtoForm.value.quantidadeEmEstoque,
         loteAtual: this.produtoForm.value.loteAtual,
+        // Remover dataUltimaEntrada e dataUltimaSaida se não estão no RequestProdutoCreate
       };
 
       this.produtoCadastrarService.cadastrarProduto(produtoParaCadastro).subscribe({
@@ -91,12 +126,13 @@ export class ProdutosCadastroComponent implements OnInit {
     }
   }
 
+  // Métodos de navegação
   chamarInicio(): void {
     this.router.navigate(['/index']);
   }
 
   chamarEstoque(): void {
-    this.router.navigate(['/estoque']);
+    this.router.navigate(['/estoques']); // Rota corrigida
   }
 
   chamarProdutos(): void {

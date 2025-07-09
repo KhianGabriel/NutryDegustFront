@@ -1,48 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from "@angular/router";
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProdutoService, Produto } from './produto.service';
 
 @Component({
-  selector: 'app-produtos-listagem',
+  selector: 'app-produtos',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
-  templateUrl: './produtos.component.html', 
+  templateUrl: './produtos.component.html',
   styleUrls: ['./produtos.component.css']
 })
-export class ProdutosComponent implements OnInit { 
-  produtos: Produto[] = []; 
-  filtroNome: string = '';
-  filtroCategoria: string = ''; 
-  produtoSelecionado: Produto | null = null; 
+export class ProdutosComponent implements OnInit {
+  produtos: Produto[] = [];
+  filtroBusca: string = ''; // Nova propriedade para busca combinada
+  filtroCategoria: string = '';
+
+  produtoSelecionado: Produto | null = null;
   modalAberto: boolean = false;
 
   constructor(
-    private produtoService: ProdutoService, 
-    private router: Router, 
-    private toastr: ToastrService 
-  ) { }
+    private produtoService: ProdutoService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
-    this.carregarProdutos(); 
+    this.carregarProdutos();
   }
 
   carregarProdutos(): void {
-    this.produtoService.getAllProdutos().subscribe( 
+    this.produtoService.getAllProdutos().subscribe(
       (dados) => {
-        this.produtos = dados; 
+        this.produtos = dados;
       },
       (error) => {
-        console.error('Erro ao carregar produtos', error); 
+        console.error('Erro ao carregar produtos', error);
         this.toastr.error('Erro ao carregar produtos.');
       }
     );
   }
 
   abrirModal(produto: Produto): void {
-    this.produtoSelecionado = produto; 
+    this.produtoSelecionado = produto;
     this.modalAberto = true;
   }
 
@@ -51,31 +52,40 @@ export class ProdutosComponent implements OnInit {
     this.produtoSelecionado = null;
   }
 
-  excluirProduto(): void { 
+  excluirProduto(): void {
     if (!this.produtoSelecionado) return;
 
     this.produtoService.excluirProduto(this.produtoSelecionado.id).subscribe(
       () => {
-        this.produtos = this.produtos.filter(p => p.id !== this.produtoSelecionado?.id); 
+        this.produtos = this.produtos.filter(p => p.id !== this.produtoSelecionado?.id);
         this.fecharModal();
         this.toastr.success('Produto excluído com sucesso!');
       },
       (error) => {
-        this.toastr.error('Erro ao excluir produto.'); 
+        this.toastr.error('Erro ao excluir produto.');
         console.error(error);
       }
     );
   }
 
-  get produtosFiltrados(): Produto[] { 
-    return this.produtos.filter(p =>
-      (p.nome.toLowerCase().includes(this.filtroNome.toLowerCase()) ||
-       p.nomeBusca.toLowerCase().includes(this.filtroNome.toLowerCase())) && 
-      p.categoria.toLowerCase().includes(this.filtroCategoria.toLowerCase())
-    );
+  get produtosFiltrados(): Produto[] {
+    const termoBusca = this.filtroBusca.toLowerCase();
+    return this.produtos.filter(p => {
+      // Verifica se o termo de busca geral (nome ou código) corresponde
+      const matchesBusca = !termoBusca ||
+                           p.nome.toLowerCase().includes(termoBusca) ||
+                           (p.nomeBusca && p.nomeBusca.toLowerCase().includes(termoBusca)) ||
+                           p.codigo.toLowerCase().includes(termoBusca);
+
+      // Verifica se a categoria corresponde (se houver filtro de categoria)
+      const matchesCategoria = !this.filtroCategoria ||
+                               p.categoria.toLowerCase().includes(this.filtroCategoria.toLowerCase());
+
+      return matchesBusca && matchesCategoria;
+    });
   }
 
-   chamarCadastroProdutos() {
+  chamarCadastroProdutos() {
     this.router.navigate(['produtos-cadastro']);
   }
 
@@ -83,12 +93,13 @@ export class ProdutosComponent implements OnInit {
     this.router.navigate(['produtos-atualizar', produto.id]);
   }
 
+  // Métodos de navegação
   chamarInicio(): void {
     this.router.navigate(['/index']);
   }
 
   chamarEstoque(): void {
-    this.router.navigate(['/estoque']);
+    this.router.navigate(['/estoques']);
   }
 
   chamarProdutos(): void {
@@ -106,7 +117,8 @@ export class ProdutosComponent implements OnInit {
   voltarParaLista(): void {
     this.router.navigate(['/produtos']);
   }
-  
+
+  // Métodos de formatação
   formatarData(data: Date | string | undefined): string {
     if (!data) return '';
     const d = new Date(data);
@@ -117,5 +129,4 @@ export class ProdutosComponent implements OnInit {
     if (valor === undefined || valor === null) return '';
     return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
-
 }

@@ -17,6 +17,7 @@ export interface Produto {
   dataCriacao: Date;
   nomeFornecedor: string;
   nomeEstoque: string;
+  codigo: string; // Adicionado 'codigo'
 }
 
 export interface RequestProdutoPut {
@@ -30,6 +31,7 @@ export interface RequestProdutoPut {
   nomeEstoque: string;
   quantidadeEmEstoque: number;
   loteAtual: string;
+  codigo: string; // Adicionado 'codigo'
 }
 
 @Injectable({

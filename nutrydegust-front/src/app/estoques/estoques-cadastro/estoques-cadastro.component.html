@@ -21,12 +21,22 @@
     <div class="form-section">
       <h3 class="section-title">Informações do Estoque</h3>
 
-      <form>
+      <form [formGroup]="estoqueForm" (ngSubmit)="cadastrarEstoque()">
         <div class="form-row">
           <div class="form-field">
             <label for="nomeEstoque">Nome do Estoque:*</label>
-            <input type="text" id="nomeEstoque" required placeholder="Digite o nome do Estoque: Ex. 'Estoque Central' ">
+            <input type="text" formControlName="nome" id="nomeEstoque" placeholder="Digite o nome do Estoque: Ex. 'Estoque Central' ">
+            <div class="erro" *ngIf="estoqueForm.get('nome')?.invalid && (estoqueForm.get('nome')?.dirty || estoqueForm.get('nome')?.touched)">
+              <span *ngIf="estoqueForm.get('nome')?.errors?.['required']">O nome do estoque é obrigatório.</span>
+            </div>
+            <div class="erro" *ngIf="errosServidor?.nome">
+              {{ errosServidor.nome }}
+            </div>
           </div>
+        </div>
+
+        <div class="erro" *ngIf="errosServidor?.geral">
+          {{ errosServidor.geral }}
         </div>
 
         <div class="form-buttons">

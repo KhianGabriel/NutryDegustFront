@@ -3,33 +3,17 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-export interface Produto {
-  id: string;
+export interface ProdutoCadastro {
   nome: string;
-  nomeBusca: string;
   descricao: string;
   precoVenda: number;
   precoCompra: number;
   dataValidade: Date;
   categoria: string;
-  quantidadeEmEstoque: number;
+  quantidadeEstoque: number;
   loteAtual: string;
-  dataCriacao: Date;
   nomeFornecedor: string;
   nomeEstoque: string;
-}
-
-export interface RequestProdutoCreate {
-  nome: string;
-  descricao?: string; 
-  precoVenda: number;
-  precoCompra: number;
-  dataValidade: string; 
-  categoria: string;
-  nomeFornecedor: string; 
-  nomeEstoque: string; 
-  quantidadeEmEstoque: number;
-  loteAtual: string;
 }
 
 @Injectable({
@@ -40,7 +24,7 @@ export class ProdutoCadastrarService {
   private apiUrl = 'http://localhost:8080/produto';
   constructor(private http: HttpClient) { }
 
-  cadastrarProduto(produto: RequestProdutoCreate): Observable<void> {
+  cadastrarProduto(produto: ProdutoCadastro): Observable<void> {
     return this.http.post<void>(this.apiUrl, produto)
       .pipe(
         catchError(this.handleError)

@@ -108,13 +108,9 @@
             </div>
             <div class="form-field">
                 <label for="quantidadeEmEstoque">Quantidade em Estoque:*</label>
-                <input type="number" formControlName="quantidadeEmEstoque" id="quantidadeEmEstoque" placeholder="Ex: 100">
-                <div class="erro" *ngIf="errosServidor?.quantidadeEmEstoque">
-                  {{ errosServidor.quantidadeEmEstoque }}
-                </div>
-                <div class="erro" *ngIf="produtoForm.get('quantidadeEmEstoque')?.invalid && (produtoForm.get('quantidadeEmEstoque')?.dirty || produtoForm.get('quantidadeEmEstoque')?.touched)">
-                  <span *ngIf="produtoForm.get('quantidadeEmEstoque')?.errors?.['required']">A quantidade em estoque é obrigatória.</span>
-                  <span *ngIf="produtoForm.get('quantidadeEmEstoque')?.errors?.['min']">A quantidade não pode ser negativa.</span>
+                <input type="number" formControlName="quantidadeEstoque" id="quantidadeEstoque" placeholder="Ex: 100">
+                <div class="erro" *ngIf="errosServidor?.quantidadeEstoque">
+                  {{ errosServidor.quantidadeEstoque }}
                 </div>
             </div>
             <div class="form-field">

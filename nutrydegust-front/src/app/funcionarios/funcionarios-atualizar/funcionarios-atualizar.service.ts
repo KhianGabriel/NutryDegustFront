@@ -3,64 +3,82 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-export interface Funcionario {
-  id: string;
+/**
+ * Interface que representa a estrutura completa de um Funcionário,
+ * conforme retornado pela API do backend para operações de listagem e detalhes.
+ */
+export interface FuncionarioAtualizar {
   nome: string;
-  cpf: string;
-  telefone: string;
-  email: string;
   cargo: string;
-  dataContratacao: Date;
-  dataCriacao: Date;
-}
-
-export interface RequestFuncionarioPut {
-  nome: string;
   cpf: string;
-  telefone: string;
   email: string;
-  cargo: string;
-  dataContratacao: string; 
+  telefone: string;
+  salario: number;
+  cargaHoraria: number;
+  atividade: string;
+  cep: string;
+  estado: string;
+  cidade: string;
+  rua: string;
+  numero: string;
+  bairro: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class FuncionariosAtualizarService {
+export class FuncionarioService {
 
   private apiUrl = 'http://localhost:8080/funcionario';
 
   constructor(private http: HttpClient) { }
 
-  getFuncionarioById(id: string): Observable<Funcionario> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Funcionario>(url)
-      .pipe(
-        catchError(this.handleError)
-      );
+  /**
+   * Busca todos os funcionários cadastrados na API.
+   * @returns Um Observable de um array de objetos Funcionario.
+   */
+  getAllFuncionarios(): Observable<FuncionarioAtualizar[]> {
+    return this.http.get<FuncionarioAtualizar[]>(this.apiUrl)
   }
 
-  atualizarFuncionario(id: string, funcionario: RequestFuncionarioPut): Observable<Funcionario> {
+  /**
+   * Busca um funcionário específico pelo seu ID.
+   * @param id O ID do funcionário a ser buscado.
+   * @returns Um Observable de um objeto Funcionario.
+   */
+  buscarProdutoPorId(id: string): Observable<FuncionarioAtualizar> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.put<Funcionario>(url, funcionario)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.get<FuncionarioAtualizar>(url)
   }
 
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'Um erro desconhecido ocorreu!';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `Erro: ${error.error.message}`;
-    } else {
-      errorMessage = `Código do erro: ${error.status}\nMensagem: ${error.message}`;
-      if (error.error && typeof error.error === 'object' && error.error.message) {
-        errorMessage = `Erro do servidor: ${error.error.message}`;
-      } else if (error.error && typeof error.error === 'string') {
-        errorMessage = `Erro do servidor: ${error.error}`;
-      }
-    }
-    console.error(errorMessage);
-    return throwError(() => error);
+  /**
+   * Cadastra um novo funcionário na API.
+   * @param funcionario Os dados do funcionário a serem cadastrados, conforme RequestFuncionarioCreate.
+   * @returns Um Observable de void, indicando a conclusão da operação.
+   */
+  cadastrarFuncionario(funcionario: FuncionarioAtualizar): Observable<void> {
+    return this.http.post<void>(this.apiUrl, funcionario)
   }
+
+  /**
+   * Atualiza os dados de um funcionário existente na API.
+   * @param id O ID do funcionário a ser atualizado.
+   * @param funcionario Os novos dados do funcionário, conforme RequestFuncionarioPut.
+   * @returns Um Observable do objeto Funcionario atualizado.
+   */
+  atualizarFuncionario(id: string, funcionario: FuncionarioAtualizar): Observable<FuncionarioAtualizar> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.put<FuncionarioAtualizar>(url, funcionario)
+  }
+
+  /**
+   * Exclui um funcionário da API pelo seu ID.
+   * @param id O ID do funcionário a ser excluído.
+   * @returns Um Observable de void, indicando a conclusão da operação.
+   */
+  excluirFuncionario(id: string): Observable<void> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete<void>(url)
+  }
+
 }

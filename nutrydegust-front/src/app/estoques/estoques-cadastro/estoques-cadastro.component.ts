@@ -14,15 +14,13 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./estoques-cadastro.component.css'],
 })
 export class EstoquesCadastroComponent implements OnInit {
-  estoqueForm!: FormGroup; 
-  errosServidor: any = {}; 
+  estoqueForm!: FormGroup;
+  errosServidor: any = {};
 
   constructor(
-    private estoqueService: EstoqueService, 
-    private route: ActivatedRoute,
+    private estoqueService: EstoqueService,
     private router: Router,
     private fb: FormBuilder,
-
     private toastr: ToastrService,
   ) { }
 
@@ -32,21 +30,21 @@ export class EstoquesCadastroComponent implements OnInit {
     });
   }
 
-  cadastrarEstoque() { 
-    this.errosServidor = {}; 
+  cadastrarEstoque() {
+    this.errosServidor = {}; // Limpa os erros do servidor a cada tentativa de submissão
 
     if (this.estoqueForm.valid) {
 
       const estoque: EstoqueCadastro = this.estoqueForm.value;
 
-      this.estoqueService.cadastrarEstoque(estoque).subscribe({ 
+      this.estoqueService.cadastrarEstoque(estoque).subscribe({
         next: () => {
-          this.toastr.success('Estoque (local) adicionado com sucesso!'); 
+          this.toastr.success('Estoque (local) adicionado com sucesso!');
           this.estoqueForm.reset();
-          this.router.navigate(['/estoques']); 
+          this.router.navigate(['/estoques']);
         },
-        error: (err: HttpErrorResponse) => { 
-          this.toastr.error('Erro ao cadastrar estoque (local)!'); 
+        error: (err: HttpErrorResponse) => {
+          this.toastr.error('Erro ao cadastrar estoque (local)!');
           console.error('Erro no cadastro de estoque:', err);
 
           if (err.status === 400 && err.error && err.error.errors) {
@@ -61,11 +59,15 @@ export class EstoquesCadastroComponent implements OnInit {
         }
       });
     } else {
+      // Melhoria: Adiciona uma mensagem de aviso e marca os campos como 'touched'
+      // para que as mensagens de validação do Angular sejam exibidas no HTML.
       this.toastr.warning('Por favor, preencha o nome do estoque corretamente.');
+      this.estoqueForm.markAllAsTouched();
     }
   }
 
-   chamarInicio(): void {
+  // Métodos de navegação (permanecem os mesmos)
+  chamarInicio(): void {
     this.router.navigate(['/index']);
   }
 

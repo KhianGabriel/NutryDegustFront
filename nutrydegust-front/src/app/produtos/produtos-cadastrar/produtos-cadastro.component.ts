@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { ProdutoCadastrarService, RequestProdutoCreate } from './produtos-cadastro.service';
+import { ProdutoCadastrarService, ProdutoCadastro } from './produtos-cadastro.service';
 import { FornecedorService, Fornecedor } from '../../fornecedores/fornecedores-listagem/fornecedores.service'; // Import do FornecedorService
 import { EstoqueService, Estoque } from '../../estoques/estoques-listagem/estoques.service'; // Import do EstoqueService
 
@@ -49,8 +49,6 @@ export class ProdutosCadastroComponent implements OnInit {
       nomeEstoque: ['', Validators.required],
       quantidadeEmEstoque: ['', [Validators.required, Validators.min(0)]],
       loteAtual: ['', Validators.required],
-      // dataUltimaEntrada e dataUltimaSaida não estão no HTML para cadastro
-      // Se necessário, adicione inputs correspondentes no HTML e valide aqui.
     });
 
     this.carregarFornecedores();
@@ -84,8 +82,7 @@ export class ProdutosCadastroComponent implements OnInit {
   cadastrarProduto(): void {
     this.errosServidor = {};
 
-    if (this.produtoForm.valid) {
-      const produtoParaCadastro: RequestProdutoCreate = {
+      const produtoParaCadastro: ProdutoCadastro = {
         nome: this.produtoForm.value.nome,
         descricao: this.produtoForm.value.descricao,
         precoVenda: this.produtoForm.value.precoVenda,
@@ -94,9 +91,8 @@ export class ProdutosCadastroComponent implements OnInit {
         categoria: this.produtoForm.value.categoria,
         nomeFornecedor: this.produtoForm.value.nomeFornecedor,
         nomeEstoque: this.produtoForm.value.nomeEstoque,
-        quantidadeEmEstoque: this.produtoForm.value.quantidadeEmEstoque,
-        loteAtual: this.produtoForm.value.loteAtual,
-        // Remover dataUltimaEntrada e dataUltimaSaida se não estão no RequestProdutoCreate
+        quantidadeEstoque: this.produtoForm.value.quantidadeEstoque,
+        loteAtual: this.produtoForm.value.loteAtual
       };
 
       this.produtoCadastrarService.cadastrarProduto(produtoParaCadastro).subscribe({
@@ -120,11 +116,7 @@ export class ProdutosCadastroComponent implements OnInit {
           }
         }
       });
-    } else {
-      this.toastr.warning('Por favor, preencha todos os campos obrigatórios corretamente.');
-      this.produtoForm.markAllAsTouched();
     }
-  }
 
   // Métodos de navegação
   chamarInicio(): void {

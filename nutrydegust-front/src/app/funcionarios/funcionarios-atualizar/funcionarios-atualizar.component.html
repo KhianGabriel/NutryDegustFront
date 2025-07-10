@@ -1,17 +1,17 @@
 <header>
-  <img src="assets/img/logo.png" alt="Nutry e Degust" class="logo">
+  <img src="../../../assets/img/logo.png" alt="Nutry e Degust" class="logo">
   <nav>
-    <a [routerLink]="['/index']">Início</a>
-    <a [routerLink]="['/estoques']">Estoque</a>
-    <a [routerLink]="['/produtos']">Produtos</a>
-    <a >Pedidos</a>
-    <a >Vendas</a>
-    <a >Clientes</a>
-    <a [routerLink]="['/fornecedores']">Fornecedores</a>
-    <a [routerLink]="['/funcionarios']">Funcionários</a>
-    <a >Relatórios</a>
-    <a href="#" class="help-button">?</a>
-</nav>
+    <a (click)="chamarInicio()">Início</a>
+    <a (click)="chamarEstoque()">Estoque</a>
+    <a (click)="chamarProdutos()">Produtos</a>
+    <a [routerLink]="['/pedidos']">Pedidos</a>
+    <a [routerLink]="['/vendas']">Vendas</a>
+    <a [routerLink]="['/clientes']">Clientes</a>
+    <a (click)="chamarFornecedores()">Fornecedores</a>
+    <a (click)="chamarFuncionarios()" class="active">Funcionários</a>
+    <a [routerLink]="['/relatorios']">Relatórios</a>
+    <a [routerLink]="['/ajuda']" class="help-button">?</a>
+  </nav>
 </header>
 
 <div class="main-content">
@@ -19,48 +19,78 @@
     <h1 class="form-title">Edição de Funcionário</h1>
     <div class="form-section">
       <h3 class="section-title">Informações do Funcionário</h3>
-      <form action="#" method="post">
+      <form [formGroup]="funcionarioForm" (ngSubmit)="atualizarFuncionario()">
         <div class="form-row">
           <div class="form-field">
             <label for="nomeFuncionario">Nome:*</label>
-            <input type="text" id="nomeFuncionario" name="nome" required>
+            <input type="text" formControlName="nome" id="nomeFuncionario">
+            <div class="erro" *ngIf="errosServidor?.nome">
+              {{ errosServidor.nome }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('nome')?.invalid && (funcionarioForm.get('nome')?.dirty || funcionarioForm.get('nome')?.touched)">
+              <span *ngIf="funcionarioForm.get('nome')?.errors?.['required']">O nome é obrigatório.</span>
+            </div>
           </div>
           <div class="form-field">
             <label for="cargoFuncionario">Cargo:*</label>
-            <input type="text" id="cargoFuncionario" name="cargo" required>
+            <input type="text" formControlName="cargo" id="cargoFuncionario">
+            <div class="erro" *ngIf="errosServidor?.cargo">
+              {{ errosServidor.cargo }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('cargo')?.invalid && (funcionarioForm.get('cargo')?.dirty || funcionarioForm.get('cargo')?.touched)">
+              <span *ngIf="funcionarioForm.get('cargo')?.errors?.['required']">O cargo é obrigatório.</span>
+            </div>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-field">
             <label for="cpfFuncionario">CPF:*</label>
-            <input type="text" id="cpfFuncionario" name="cpf" maxlength="14" required>
-          </div>
-          <div class="form-field">
-            <label for="dataAdmissaoFuncionario">Data de Admissão:*</label>
-            <input type="date" id="dataAdmissaoFuncionario" name="dataAdmissao" required>
+            <input type="text" formControlName="cpf" id="cpfFuncionario" maxlength="14" (input)="formatarCPF($event)">
+            <div class="erro" *ngIf="errosServidor?.cpf">
+              {{ errosServidor.cpf }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('cpf')?.invalid && (funcionarioForm.get('cpf')?.dirty || funcionarioForm.get('cpf')?.touched)">
+              <span *ngIf="funcionarioForm.get('cpf')?.errors?.['required']">O CPF é obrigatório.</span>
+            </div>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-field">
             <label for="salarioFuncionario">Salário:*</label>
-            <input type="number" id="salarioFuncionario" name="salario" step="0.01" required>
+            <input type="number" formControlName="salario" id="salarioFuncionario" step="0.01">
+            <div class="erro" *ngIf="errosServidor?.salario">
+              {{ errosServidor.salario }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('salario')?.invalid && (funcionarioForm.get('salario')?.dirty || funcionarioForm.get('salario')?.touched)">
+              <span *ngIf="funcionarioForm.get('salario')?.errors?.['required']">O salário é obrigatório.</span>
+              <span *ngIf="funcionarioForm.get('salario')?.errors?.['min']">O salário não pode ser negativo.</span>
+            </div>
           </div>
           <div class="form-field">
             <label for="cargaHorariaFuncionario">Carga Horária:*</label>
-            <input type="text" id="cargaHorariaFuncionario" name="cargaHoraria" placeholder="ex: 40h/semana" required>
+            <input type="number" formControlName="cargaHoraria" id="cargaHorariaFuncionario" placeholder="ex: 40">
+            <div class="erro" *ngIf="errosServidor?.cargaHoraria">
+              {{ errosServidor.cargaHoraria }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('cargaHoraria')?.invalid && (funcionarioForm.get('cargaHoraria')?.dirty || funcionarioForm.get('cargaHoraria')?.touched)">
+              <span *ngIf="funcionarioForm.get('cargaHoraria')?.errors?.['required']">A carga horária é obrigatória.</span>
+              <span *ngIf="funcionarioForm.get('cargaHoraria')?.errors?.['min']">A carga horária não pode ser negativa.</span>
+            </div>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-field">
             <label for="atividadeFuncionario">Atividade:*</label>
-            <input type="text" id="atividadeFuncionario" name="atividade" required>
-          </div>
-          <div class="form-field">
-            <label for="tempoAquisitivoFuncionario">Tempo Aquisitivo:*</label>
-            <input type="text" id="tempoAquisitivoFuncionario" name="tempoAquisitivo" required>
+            <input type="text" formControlName="atividade" id="atividadeFuncionario">
+            <div class="erro" *ngIf="errosServidor?.atividade">
+              {{ errosServidor.atividade }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('atividade')?.invalid && (funcionarioForm.get('atividade')?.dirty || funcionarioForm.get('atividade')?.touched)">
+              <span *ngIf="funcionarioForm.get('atividade')?.errors?.['required']">A atividade é obrigatória.</span>
+            </div>
           </div>
         </div>
 
@@ -68,11 +98,24 @@
         <div class="form-row">
           <div class="form-field">
             <label for="emailFuncionario">Email:*</label>
-            <input type="email" id="emailFuncionario" name="email" required>
+            <input type="email" formControlName="email" id="emailFuncionario">
+            <div class="erro" *ngIf="errosServidor?.email">
+              {{ errosServidor.email }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('email')?.invalid && (funcionarioForm.get('email')?.dirty || funcionarioForm.get('email')?.touched)">
+              <span *ngIf="funcionarioForm.get('email')?.errors?.['required']">O email é obrigatório.</span>
+              <span *ngIf="funcionarioForm.get('email')?.errors?.['email']">Email inválido.</span>
+            </div>
           </div>
           <div class="form-field">
             <label for="telefoneFuncionario">Telefone:*</label>
-            <input type="text" id="telefoneFuncionario" name="telefone" required>
+            <input type="text" formControlName="telefone" id="telefoneFuncionario" (input)="formatarTelefone($event)">
+            <div class="erro" *ngIf="errosServidor?.telefone">
+              {{ errosServidor.telefone }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('telefone')?.invalid && (funcionarioForm.get('telefone')?.dirty || funcionarioForm.get('telefone')?.touched)">
+              <span *ngIf="funcionarioForm.get('telefone')?.errors?.['required']">O telefone é obrigatório.</span>
+            </div>
           </div>
         </div>
 
@@ -80,11 +123,17 @@
         <div class="form-row">
           <div class="form-field" style="flex: 2.3;">
             <label for="cepFuncionario">CEP:*</label>
-            <input type="text" id="cepFuncionario" name="cep" maxlength="9" required>
+            <input type="text" formControlName="cep" id="cepFuncionario" maxlength="9" (blur)="buscarEnderecoPorCep()" (input)="formatarCEP($event)">
+            <div class="erro" *ngIf="errosServidor?.cep">
+              {{ errosServidor.cep }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('cep')?.invalid && (funcionarioForm.get('cep')?.dirty || funcionarioForm.get('cep')?.touched)">
+              <span *ngIf="funcionarioForm.get('cep')?.errors?.['required']">O CEP é obrigatório.</span>
+            </div>
           </div>
           <div class="form-field">
             <label for="estadoFuncionario">UF:*</label>
-            <select id="estadoFuncionario" name="estado" required>
+            <select id="estadoFuncionario" formControlName="estado">
               <option value="" selected disabled>Selecione</option>
               <option value="AC">Acre</option>
               <option value="AL">Alagoas</option>
@@ -100,7 +149,7 @@
               <option value="MS">Mato Grosso do Sul</option>
               <option value="MG">Minas Gerais</option>
               <option value="PA">Pará</option>
-              <option value="PB">Paraíba</option>
+              <option value="PB">Paraíba</option> 
               <option value="PR">Paraná</option>
               <option value="PE">Pernambuco</option>
               <option value="PI">Piauí</option>
@@ -114,31 +163,61 @@
               <option value="SE">Sergipe</option>
               <option value="TO">Tocantins</option>
             </select>
+            <div class="erro" *ngIf="errosServidor?.estado">
+              {{ errosServidor.estado }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('estado')?.invalid && (funcionarioForm.get('estado')?.dirty || funcionarioForm.get('estado')?.touched)">
+              <span *ngIf="funcionarioForm.get('estado')?.errors?.['required']">O estado é obrigatório.</span>
+            </div>
           </div>
           <div class="form-field" style="flex: 1.5;">
             <label for="cidadeFuncionario">Cidade:*</label>
-            <input type="text" id="cidadeFuncionario" name="cidade" required>
+            <input type="text" formControlName="cidade" id="cidadeFuncionario">
+            <div class="erro" *ngIf="errosServidor?.cidade">
+              {{ errosServidor.cidade }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('cidade')?.invalid && (funcionarioForm.get('cidade')?.dirty || funcionarioForm.get('cidade')?.touched)">
+              <span *ngIf="funcionarioForm.get('cidade')?.errors?.['required']">A cidade é obrigatória.</span>
+            </div>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-field" style="flex: 2;">
             <label for="ruaFuncionario">Rua:*</label>
-            <input type="text" id="ruaFuncionario" name="rua" required>
+            <input type="text" formControlName="rua" id="ruaFuncionario">
+            <div class="erro" *ngIf="errosServidor?.rua">
+              {{ errosServidor.rua }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('rua')?.invalid && (funcionarioForm.get('rua')?.dirty || funcionarioForm.get('rua')?.touched)">
+              <span *ngIf="funcionarioForm.get('rua')?.errors?.['required']">A rua é obrigatória.</span>
+            </div>
           </div>
           <div class="form-field small">
             <label for="numeroFuncionario">Número:*</label>
-            <input type="text" id="numeroFuncionario" name="numero" required>
+            <input type="text" formControlName="numero" id="numeroFuncionario">
+            <div class="erro" *ngIf="errosServidor?.numero">
+              {{ errosServidor.numero }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('numero')?.invalid && (funcionarioForm.get('numero')?.dirty || funcionarioForm.get('numero')?.touched)">
+              <span *ngIf="funcionarioForm.get('numero')?.errors?.['required']">O número é obrigatório.</span>
+            </div>
           </div>
           <div class="form-field" style="flex: 1;">
             <label for="bairroFuncionario">Bairro:*</label>
-            <input type="text" id="bairroFuncionario" name="bairro" required>
+            <input type="text" formControlName="bairro" id="bairroFuncionario">
+            <div class="erro" *ngIf="errosServidor?.bairro">
+              {{ errosServidor.bairro }}
+            </div>
+            <div class="erro" *ngIf="funcionarioForm.get('bairro')?.invalid && (funcionarioForm.get('bairro')?.dirty || funcionarioForm.get('bairro')?.touched)">
+              <span *ngIf="funcionarioForm.get('bairro')?.errors?.['required']">O bairro é obrigatório.</span>
+            </div>
           </div>
         </div>
 
         <div class="form-buttons">
           <button type="submit" class="btn btn-save">Salvar</button>
-          <button type="reset" class="btn btn-cancel">Cancelar</button>
+          <button (click)="voltarParaLista()" type="button" class="btn btn-cancel">Cancelar</button>
         </div>
       </form>
     </div>

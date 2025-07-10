@@ -23,40 +23,15 @@ export class EstoqueService {
 
   getAllEstoques(): Observable<Estoque[]> {
     return this.http.get<Estoque[]>(this.apiUrl)
-      .pipe(
-        catchError(this.handleError)
-      );
   }
 
   getEstoqueById(id: string): Observable<Estoque> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Estoque>(url)
-      .pipe(
-        catchError(this.handleError)
-      );
   }
 
   excluirEstoque(id: string): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'Um erro desconhecido ocorreu!';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `Erro: ${error.error.message}`;
-    } else {
-      errorMessage = `Código do erro: ${error.status}\nMensagem: ${error.message}`;
-      if (error.error && typeof error.error === 'object' && error.error.message) {
-        errorMessage = `Erro do servidor: ${error.error.message}`;
-      } else if (error.error && typeof error.error === 'string') {
-        errorMessage = `Erro do servidor: ${error.error}`;
-      }
-    }
-    console.error(errorMessage);
-    return throwError(() => error);
   }
 }

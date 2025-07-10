@@ -55,13 +55,6 @@ export class EstoquesComponent implements OnInit {
   excluirEstoque(): void {
     if (!this.estoqueSelecionado) return;
 
-    // Condição para exclusão: só permite se quantidadeItens for 0
-    if (this.estoqueSelecionado.quantidadeItens && this.estoqueSelecionado.quantidadeItens > 0) {
-      this.toastr.error('Este estoque contém itens e não pode ser excluído.');
-      this.fecharModal(); // Fecha o modal após a mensagem de erro
-      return; // Impede a continuação da exclusão
-    }
-
     this.estoqueService.excluirEstoque(this.estoqueSelecionado.id).subscribe(
       () => {
         this.estoques = this.estoques.filter(e => e.id !== this.estoqueSelecionado?.id);
